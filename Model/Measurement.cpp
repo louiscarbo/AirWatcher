@@ -4,7 +4,7 @@
 #include "Attribute.h"
 using namespace std;
 
-Measurement::Measurement(Date time, float valeur, string capteurID, Attribute attribut){
+Measurement::Measurement(time_t time, float valeur, string capteurID, Attribute attribut){
     timestamp = time;
     attribute = attribut;
     sensorID = capteurID;
@@ -18,6 +18,6 @@ float Measurement::getValue(){
 Attribute Measurement::getAttribute(){
     return attribute;
 }
-Date Measurement::getTimeStamp(){
+time_t Measurement::getTimeStamp(){
     return timestamp;
 }

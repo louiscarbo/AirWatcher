@@ -1,25 +1,25 @@
 #ifndef MEASUREMENT_H
 #define MEASUREMENT_H
 
-using namespace std;
 #include <ctime>
 #include <string>
 #include "Attribute.h"
+using namespace std;
 
 
 class Measurement {
     public:
-        Measurement(Date time, float valeur, string capteurID, Attribute attribut);
+        Measurement(time_t time, float valeur, string capteurID, Attribute attribut);
         float getValue();
         Attribute getAttribute();
-        Date getTimeStamp();
+        time_t getTimeStamp();
         
     protected:
-        Date timestanp;
+        time_t timestamp;
         float value;
         string sensorID;
         Attribute attribute;
 
-}
+};
 
 #endif // MEASUREMENT_H
