@@ -1,69 +1,56 @@
 /*************************************************************************
-                           Classe  -  useCasesManager
-                             -------------------
-    début                : $DATE$
-    copyright            : (C) $YEAR$ par $AUTHOR$
-    e-mail               : $EMAIL$
+                           Classe  -  UseCasesManager
 *************************************************************************/
 
-//---------- Interface de la classe <useCasesManager> (fichier useCasesManager.h) ----------------
-#if ! defined ( USECASESMANAGER_H )
-#define USECASESMANAGER_H
-
-#include Sensor.h;
-#include Measurement.h;
-#include Cleaner;
-#include privateIndividual; 
-
-#include <list>;
+//- Interface de la classe <UseCasesManager> (fichier UseCasesManager.h) -
+#if ! defined ( UseCasesManager_H )
+#define UseCasesManager_H
 
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
+#include "../Model/Sensor.h"
 
 //------------------------------------------------------------------------
-// Rôle de la classe <Xxx>
+// Rôle de la classe UseCasesManager
 //
 //
 //------------------------------------------------------------------------
 
-class useCasesManager 
+class UseCasesManager 
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
-//----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
+//----------------------------------------------------- Méthodes publiques    
+    vector<pair<Sensor, double>> identifySuspiciousSensors();
     // Mode d'emploi :
-    //
+    //  Appeler cette méthode pour identifier les capteurs suspicieux
+    //  (soit des capteurs défectueux, soit des capteurs malicieux).
+    //  Elle renvoie une liste de paires (capteur, valeur) où la valeur
+    //  est le score de suspicion du capteur.
     // Contrat :
-    //
+    //  - La liste de capteurs doit être initialisée avant d'appeler cette méthode.
 
+    vector<Sensor> findSensorsWithinRadius(const Coordinates& center, double radius);
+    // Mode d'emploi :
+    //  Renvoie une liste de capteurs situés dans un rayon donné autour d'un point central.
+    //  Le rayon est en kilomètres.
+    // Contrat :
+    //  - center doit être un objet de type Coordinates valide.
 
 //------------------------------------------------- Surcharge d'opérateurs
-    useCasesManager & operator = ( const Xxx & unXxx );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
 
 //-------------------------------------------- Constructeurs - destructeur
-    useCasesManager ( const Xxx & unXxx );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
-
-    useCasesManager ( );
+    UseCasesManager ( );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    virtual ~useCasesManager ( );
+    virtual ~UseCasesManager ( );
     // Mode d'emploi :
     //
     // Contrat :
@@ -75,18 +62,11 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-bool trackPerformance;
-std::list<Sensor> sensors;
-std::list<Measurement> measurements;
-std::list<Cleaner> cleaners;
-std::list<rivateIndividual> privateIndividuals;
-
-
-
-
+    bool trackPerformance;
+    vector<Sensor> sensors;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Xxx>
 
-#endif // USECASESMANAGER
+#endif // UseCasesManager
 
