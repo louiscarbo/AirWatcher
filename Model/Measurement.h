@@ -10,8 +10,13 @@ using namespace std;
 class Measurement {
     public:
         Measurement(time_t time, float valeur, string capteurID, Attribute attribut);
+        
+        ~Measurement();
+
         float getValue();
+
         Attribute getAttribute();
+
         time_t getTimeStamp();
         
     protected:

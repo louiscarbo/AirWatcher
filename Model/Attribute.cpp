@@ -1,6 +1,27 @@
-#include "Attribute.h"
+/*************************************************************************
+                           Classe : Attribute
+*************************************************************************/
+
+// Réalisation de la classe <Attribute> (fichier Attribute.cpp)
+
+//---------------------------------------------------------------- INCLUDE
+
+//-------------------------------------------------------- Include système
 #include <string>
 using namespace std;
+
+//------------------------------------------------------ Include personnel
+#include "Attribute.h"
+
+//------------------------------------------------------------- Constantes
+
+//----------------------------------------------------------------- PUBLIC
+
+//----------------------------------------------------- Méthodes publiques
+
+//------------------------------------------------- Surcharge d'opérateurs
+
+//-------------------------------------------- Constructeurs - destructeur
 
 Attribute::Attribute(string attributeID, string unit, string description){
     this->attributeID = attributeID;
@@ -12,3 +33,13 @@ Attribute::Attribute(){
     unit = "";
     description = "";
 }
+
+Attribute::~Attribute ( ){
+#ifdef MAP
+    cout << "Appel au destructeur de <Attribute>" << endl;
+#endif
+}
+
+//------------------------------------------------------------------ PRIVE
+
+//----------------------------------------------------- Méthodes protégées

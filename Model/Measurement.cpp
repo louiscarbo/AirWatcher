@@ -1,15 +1,25 @@
+/*************************************************************************
+                           Classe : Measurement
+*************************************************************************/
+
+// Réalisation de la classe <Measurement> (fichier Measurement.cpp)
+
+//---------------------------------------------------------------- INCLUDE
+
+//-------------------------------------------------------- Include système
 #include <ctime>
 #include <string>
-#include "Measurement.h"
-#include "Attribute.h"
 using namespace std;
 
-Measurement::Measurement(time_t time, float valeur, string capteurID, Attribute attribut){
-    timestamp = time;
-    attribute = attribut;
-    sensorID = capteurID;
-    value = valeur;
-}
+//------------------------------------------------------ Include personnel
+#include "Measurement.h"
+#include "Attribute.h"
+
+//------------------------------------------------------------- Constantes
+
+//----------------------------------------------------------------- PUBLIC
+
+//----------------------------------------------------- Méthodes publiques
 
 float Measurement::getValue(){
     return value;
@@ -18,6 +28,28 @@ float Measurement::getValue(){
 Attribute Measurement::getAttribute(){
     return attribute;
 }
+
 time_t Measurement::getTimeStamp(){
     return timestamp;
 }
+
+//------------------------------------------------- Surcharge d'opérateurs
+
+//-------------------------------------------- Constructeurs - destructeur
+
+Measurement::Measurement(time_t time, float valeur, string capteurID, Attribute attribut){
+    timestamp = time;
+    attribute = attribut;
+    sensorID = capteurID;
+    value = valeur;
+}
+
+Measurement::~Measurement ( ){
+#ifdef MAP
+    cout << "Appel au destructeur de <Measurement>" << endl;
+#endif
+}
+
+//------------------------------------------------------------------ PRIVE
+
+//----------------------------------------------------- Méthodes protégées
