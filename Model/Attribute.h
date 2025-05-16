@@ -1,12 +1,13 @@
 #if ! defined (Attribute)
 #define Attribute
 
-#include <cstring>
-
+#include <string>
+using namespace std;
 
 
 class Measurement {
     public:
+        Attribute(string attributeID, string unit, string description);
         
     protected:
         string attributeID;
