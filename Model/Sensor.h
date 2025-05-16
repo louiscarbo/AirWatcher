@@ -1,56 +1,68 @@
 /*************************************************************************
-                           Classe  -  UseCasesManager
+                           Classe  -  Sensor
 *************************************************************************/
 
-//- Interface de la classe <UseCasesManager> (fichier UseCasesManager.h) -
-#if ! defined ( UseCasesManager_H )
-#define UseCasesManager_H
+//- Interface de la classe <Sensor> (fichier Sensor.h) -
+#if ! defined ( Sensor_H )
+#define Sensor_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include <chrono>
+#include <string>
+#include <vector>
+using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
+#include "../Model/Coordinates.h"
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-#include "../Model/Sensor.h"
 
 //------------------------------------------------------------------------
-// Rôle de la classe UseCasesManager
+// Rôle de la classe Sensor
 //
 //
 //------------------------------------------------------------------------
 
-class UseCasesManager 
+class Sensor 
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
 //----------------------------------------------------- Méthodes publiques    
-    vector<pair<Sensor, double>> identifySuspiciousSensors();
+    vector<Timestamp> getMeasurementTimestamps() const;
     // Mode d'emploi :
-    //  Appeler cette méthode pour identifier les capteurs suspicieux
-    //  (soit des capteurs défectueux, soit des capteurs malicieux).
-    //  Elle renvoie une liste de paires (capteur, valeur) où la valeur
-    //  est le score de suspicion du capteur.
-    // Contrat :
-    //  - La liste de capteurs doit être initialisée avant d'appeler cette méthode.
+    //  Renvoie les horodatages des mesures du capteur.
 
-    vector<Sensor> findSensorsWithinRadius(const Coordinates& center, double radius);
+    double calculateMeanAtmoIndex(Timestamp at);
     // Mode d'emploi :
-    //  Renvoie une liste de capteurs situés dans un rayon donné autour d'un point central.
-    //  Le rayon est en kilomètres.
+    //  Calcule l'indice ATMO moyen à partir des mesures du capteur
+    //  pour un horodatage donné.
     // Contrat :
-    //  - center doit être un objet de type Coordinates valide.
+    //  - at doit être un horodatage valide.
+    //  - S'il n'y a pas de mesures à cet horodatage, la méthode renvoie NaN
+
+    Coordinates getCoordinates() const;
+    // Mode d'emploi :
+    //  Renvoie les coordonnées du capteur.
+    // Contrat :
+    //  - Les coordonnées doivent être initialisées avant d'appeler cette méthode.
+
+    bool hasMeasurementAt(Timestamp at) const;
+    // Mode d'emploi :
+    //  Vérifie si le capteur a une mesure à un horodatage donné.
+    // Contrat :
+    //  - at doit être un horodatage valide.
 
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
-    UseCasesManager ( );
+    Sensor ( );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    virtual ~UseCasesManager ( );
+    virtual ~Sensor ( );
     // Mode d'emploi :
     //
     // Contrat :
@@ -62,11 +74,10 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-    bool trackPerformance;
-    vector<Sensor> sensors;
+    string sensorID;
+    string ownerID;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Xxx>
 
-#endif // UseCasesManager
-
+#endif // Sensor
