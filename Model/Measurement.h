@@ -11,6 +11,8 @@ class Measurement {
     public:
         Measurement(time_t time, float valeur, string capteurID, Attribute attribut);
         
+        Measurement();
+
         ~Measurement();
 
         float getValue();
