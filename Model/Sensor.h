@@ -29,7 +29,7 @@ class Sensor
 
 public:
 //----------------------------------------------------- Méthodes publiques    
-    set<Timestamp> getMeasurementTimestamps() const;
+    vector<Timestamp> getMeasurementTimestamps() const;
     // Mode d'emploi :
     //  Renvoie les horodatages des mesures du capteur.
 

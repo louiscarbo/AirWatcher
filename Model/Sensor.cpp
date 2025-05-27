@@ -47,11 +47,14 @@ class Sensor{
             return res;
         }
 
-        set<Timestamp> getMeasurementTimestamps(){ //!!!!!!!!!!!!!!!!!!!!! set et non list
+        vector<Timestamp> getMeasurementTimestamps(){ //!!!!!!!!!!!!!!!!!!!!! set et non list
             set <Timestamp> liste_timestamps;
             for(int i=0;i<sizeMeasurementList;++i){
                 liste_timestamps.insert(measurement[i].getTimestamp());
             }
+
+            vector<Timestamp> liste_finale(liste_timestamps.begin(), liste_timestamps.end());
+            return liste_finale;
         }
 
 
