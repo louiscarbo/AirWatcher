@@ -10,6 +10,7 @@
 
 //------------------------------------------------------ Include personnel
 #include "Coordinates.h"
+#include <string>
 
 //------------------------------------------------------------- Constantes
 
@@ -23,6 +24,18 @@ double Coordinates::getLatitude() const {
 
 double Coordinates::getLongitude() const {
     return longitude;
+}
+
+Coordinates Coordinates::parseCoordinates(const std::string &input) {
+    size_t commaPos = input.find(',');
+    if (commaPos == std::string::npos) {
+        throw std::invalid_argument("Invalid coordinate format. Use 'latitude,longitude'.");
+    }
+    
+    double lat = std::stod(input.substr(0, commaPos));
+    double lon = std::stod(input.substr(commaPos + 1));
+    
+    return Coordinates(lat, lon);
 }
 
 //------------------------------------------------- Surcharge d'opérateurs

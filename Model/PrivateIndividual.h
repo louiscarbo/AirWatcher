@@ -1,57 +1,75 @@
 /*************************************************************************
-                           Classe  -  PrivateIndividual
+                           Classe : PrivateIndividual
+                             -------------------
+    début                : 
+    copyright            : B3232 B3235
+    e-mail               : 
 *************************************************************************/
 
-//- Interface de la classe <PrivateIndividual> (fichier PrivateIndividual.h)
-#ifndef PRIVATEINDIVIDUAL_H
+//---------- Interface de la classe <PrivateIndividual> ----------------
+#if ! defined ( PRIVATEINDIVIDUAL_H )
 #define PRIVATEINDIVIDUAL_H
-//--------------------------------------------------- Interfaces utilisées
 
+#include <string>
+#include <vector>
+
+//--------------------------------------------------- Interfaces utilisées
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe PrivateIndividual
+// Rôle de la classe <PrivateIndividual>
 //
 //
 //------------------------------------------------------------------------
 
-
-
-
 class PrivateIndividual {
-    //----------------------------------------------------------------- PUBLIC
-    public:
-        //----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------------------- PUBLIC
 
+public:
+//----------------------------------------------------- Méthodes publiques
+    void AddPoints(int delta);
+    // met à jour le nombre de points de l'utilisateur à chaque utilisation de ses données
 
-        //------------------------------------------------- Surcharge d'opérateurs
+    void MarkUnreliable();
+    // par défaut, user reliable, cette méthode le rend non fiable
 
-        //-------------------------------------------- Constructeurs - destructeur
+    int getPoints() const;
 
-        
-        PrivateIndividual();
-        // Mode d'emploi :
-        //
-        // Contrat :
-        //
+    void AddSensor(const string& sensorId);
+//-------------------------------------------- Constructeurs - destructeur
 
-        ~PrivateIndividual();
-        // Mode d'emploi :
-        //
-        // Contrat :
-        //
+    PrivateIndividual (const string &unUserName, bool isReliable, int points);
+    // Mode d'emploi (constructeur de copie) :
+    //
+    // Contrat :
+    //
 
-    //------------------------------------------------------------------ PRIVE
-    protected:
-    //----------------------------------------------------- Méthodes protégées
+    PrivateIndividual ( );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
-    //----------------------------------------------------- Attributs protégés
+    virtual ~PrivateIndividual ( );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
+//------------------------------------------------------------------ PRIVE
+
+private:
+    static int nextId; //compteur pour générer les id auto
+    int idUser;
+    std::string userName;
+    bool isReliable;
+    int points;
+    std::vector<std::string> sensorsIDs;
+//----------------------------------------------------- Méthodes protégées
+    static int generateNextId();
 
 };
 
-//-------------------------------- Autres définitions dépendantes de <PrivateIndividual>
-
-#endif // PRIVATEINDIVIDUAL_H
+#endif

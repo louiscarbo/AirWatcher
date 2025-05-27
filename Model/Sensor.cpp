@@ -54,6 +54,14 @@ bool Sensor::hasMeasurementAtTime(Timestamp timeStamp) const{
     return res;
 }
 
+string Sensor::getSensorID() const
+{
+    #ifdef MAP
+        cout << "Appel à getSensorID" << endl;
+    #endif
+    return sensorID;
+}
+
 vector<Timestamp> Sensor::getMeasurementTimestamps() const { //!!!!!!!!!!!!!!!!!!!!! set et non list
     set <Timestamp> liste_timestamps;
     auto it = measurements.begin();

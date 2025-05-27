@@ -12,6 +12,7 @@
 
 //------------------------------------------------------------------ Types
 #include "../Model/Sensor.h"
+using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 
 //------------------------------------------------------------------------
 // Rôle de la classe UseCasesManager
@@ -34,16 +35,18 @@ public:
     // Contrat :
     //  - La liste de capteurs doit être initialisée avant d'appeler cette méthode.
 
-    vector<Sensor> findSensorsWithinRadius(const Coordinates& center, double radius);
+    set<Sensor> findSensorsWithinRadius(const Coordinates& center, double radius);
     // Mode d'emploi :
     //  Renvoie une liste de capteurs situés dans un rayon donné autour d'un point central.
     //  Le rayon est en kilomètres.
     // Contrat :
     //  - center doit être un objet de type Coordinates valide.
 
-    set<Sensor> findSensorsWithinRadius(Coordinates centerCoords, float R);
-
     int ComputeAtmoIndexInArea(Coordinates centerCoords,float R, Timestamp timestamp);
+    // Mode d'emploi :
+    //  Calcule l'indice ATMO moyen dans une zone circulaire centrée sur
+    //  les coordonnées spécifiées, avec un rayon donné.
+    //  Le timestamp spécifie le moment pour lequel l'indice doit être calculé.
 
 //------------------------------------------------- Surcharge d'opérateurs
 

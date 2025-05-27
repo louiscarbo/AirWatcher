@@ -63,6 +63,10 @@ public:
     void addMeasurement(Measurement measurement);
     //ajout de measurement à la fin de la liste des measurements
 
+    string getSensorID() const;
+    // Mode d'emploi :
+    //  Renvoie l'identifiant du capteur.
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
