@@ -63,23 +63,10 @@ public:
 //-------------------------------------------- Constructeurs - destructeur
 
 
-Xxx ( const Xxx & unXxx );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
+    explicit CSVParser ( const string & unpath );
+    CSVParser ( );
 
-    Xxx ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-    virtual ~Xxx ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    virtual ~CSVParser ( );
 
 //------------------------------------------------------------------ PRIVE
 
