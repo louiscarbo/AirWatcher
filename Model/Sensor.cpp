@@ -1,6 +1,11 @@
 #include <string>
 #include <ctime>
+#include <chrono>
 #include <set>
+#include <vector>
+using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
+#include "../Model/Coordinates.h"
+#include "../Model/Measurement.h"
 
 class Sensor{
    public:
@@ -8,7 +13,7 @@ class Sensor{
        Coordinates getCoordinates(){
            return coordinates;
        }
-       int calculateAtmoIndex(Date timeStamp = time()){
+       int calculateAtmoIndex(Timestamp timeStamp =  std::chrono::system_clock::now()){ //à vérifier
            int sizeMeasurementList = sizeof(measurements)/sizeof(Measurement);
            int atmo_final = 0;
            map<int,int> dictMaxValAtmo;
@@ -30,8 +35,8 @@ class Sensor{
        }
 
 
-       boolean hasMeasurementAtTime(Date timeStamp){
-            boolean res = false;
+       bool hasMeasurementAtTime(Timestamp timeStamp){
+            bool res = false;
             for(int i=0;i<sizeMeasurementList;i+=4){
                 if (measurement[i].getTimestamp()==timeStamp){
                     res = true;
@@ -42,15 +47,17 @@ class Sensor{
             return res;
         }
 
-        set<Date> getMeasurementTimestamps(){ //!!!!!!!!!!!!!!!!!!!!! set et non list
-            set <Date> liste_timestamps;
+        set<Timestamp> getMeasurementTimestamps(){ //!!!!!!!!!!!!!!!!!!!!! set et non list
+            set <Timestamp> liste_timestamps;
             for(int i=0;i<sizeMeasurementList;++i){
                 liste_timestamps.insert(measurement[i].getTimestamp());
             }
         }
 
 
-
+        Sensor(){
+            initDictUnit(); 
+        }
        //boolean addMeasurement(Measurement measurement)??
        Sensor(string sensor_ID, float latitudeInit, float longitudeInit){
            sensorID = sensor_ID;
@@ -61,7 +68,7 @@ class Sensor{
        ~Sensor(){}
 
 
-   private :
+   protected :
        string sensorID;
        string ownerID;
        Coordinates coordinates;

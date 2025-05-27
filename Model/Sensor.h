@@ -29,11 +29,11 @@ class Sensor
 
 public:
 //----------------------------------------------------- Méthodes publiques    
-    vector<Timestamp> getMeasurementTimestamps() const;
+    set<Timestamp> getMeasurementTimestamps() const;
     // Mode d'emploi :
     //  Renvoie les horodatages des mesures du capteur.
 
-    double calculateMeanAtmoIndex(Timestamp at);
+    int calculateMeanAtmoIndex(Timestamp at);
     // Mode d'emploi :
     //  Calcule l'indice ATMO moyen à partir des mesures du capteur
     //  pour un horodatage donné.
@@ -61,6 +61,7 @@ public:
     //
     // Contrat :
     //
+    Sensor(string sensor_ID, float latitudeInit, float longitudeInit);
 
     virtual ~Sensor ( );
     // Mode d'emploi :
@@ -76,6 +77,16 @@ protected:
 //----------------------------------------------------- Attributs protégés
     string sensorID;
     string ownerID;
+    Coordinates coordinates;
+    list<Measurement> measurements;
+    PrivateIndividual privateIndividual;
+    map<string,map<int,int>> dictUnitAtmoMaxValue;
+//----------------------------------------------------- Méthodes protégées    
+
+    void initDictUnit()
+    // initialise le dictionnaire dictUnitAtmoMaxValue sous la forme : 
+    //  dictUnitAtmoMaxValue[U][atmo value]= X; avec X la valeur maximale dans l'unité U correspondant à l'atmo value
+    //  exemple : dictUnitAtmoMaxValue["O3"][1]=29;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Xxx>
