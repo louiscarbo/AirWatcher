@@ -59,6 +59,10 @@ public:
     // Contrat :
     //  - at doit être un horodatage valide.
 
+    string getSensorID() const;
+    // Mode d'emploi :
+    //  Renvoie l'identifiant du capteur.
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
