@@ -11,9 +11,13 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <set>
+#include <map>
 using namespace std;
 using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 #include "../Model/Coordinates.h"
+#include "../Model/Measurement.h"
+#include "../Model/PrivateIndividual.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -43,13 +47,13 @@ public:
     //  - at doit être un horodatage valide.
     //  - S'il n'y a pas de mesures à cet horodatage, la méthode renvoie NaN
 
-    Coordinates getCoordinates() const;
+    Coordinates * getCoordinates() const;
     // Mode d'emploi :
     //  Renvoie les coordonnées du capteur.
     // Contrat :
     //  - Les coordonnées doivent être initialisées avant d'appeler cette méthode.
 
-    bool hasMeasurementAt(Timestamp at) const;
+    bool hasMeasurementAtTime(Timestamp at) const;
     // Mode d'emploi :
     //  Vérifie si le capteur a une mesure à un horodatage donné.
     // Contrat :
@@ -63,7 +67,7 @@ public:
     //
     // Contrat :
     //
-    Sensor(string sensor_ID, float latitudeInit, float longitudeInit);
+    Sensor(string sensor_ID, float latitudeInit, float longitudeInit, PrivateIndividual * privateIndiv = nullptr);
 
     virtual ~Sensor ( );
     // Mode d'emploi :
@@ -78,14 +82,13 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
     string sensorID;
-    string ownerID;
-    Coordinates coordinates;
+    Coordinates * coordinates;
     list<Measurement> measurements;
-    PrivateIndividual privateIndividual;
+    PrivateIndividual * privateIndividual;
     map<string,map<int,int>> dictUnitAtmoMaxValue;
 //----------------------------------------------------- Méthodes protégées    
 
-    void initDictUnit()
+    void initDictUnit();
     // initialise le dictionnaire dictUnitAtmoMaxValue sous la forme : 
     //  dictUnitAtmoMaxValue[U][atmo value]= X; avec X la valeur maximale dans l'unité U correspondant à l'atmo value
     //  exemple : dictUnitAtmoMaxValue["O3"][1]=29;

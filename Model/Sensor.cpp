@@ -7,23 +7,27 @@
 using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 #include "../Model/Coordinates.h"
 #include "../Model/Measurement.h"
+#include <map>
+using namespace std;
 
 
  
-Coordinates Sensor::getCoordinates(){
+Coordinates * Sensor::getCoordinates() const{
     return coordinates;
 }
 
-int Sensor::calculateAtmoIndex(Timestamp timeStamp =  std::chrono::system_clock::now()){ //à vérifier
-    int sizeMeasurementList = sizeof(measurements)/sizeof(Measurement);
+int Sensor::calculateMeanAtmoIndex(Timestamp timeStamp =  std::chrono::system_clock::now()){ //à vérifier
     int atmo_final = 0;
+    auto it = measurements.begin();
     map<int,int> dictMaxValAtmo;
-    for(int i=0;i<sizeMeasurementList;i+=4){
-        if (measurement[i].getTimestamp()==timeStamp){
+    for(int i=0;i<measurements.size();i+=4){
+        advance(it, i);
+        if (it->getTimeStamp()==timeStamp){
             for(int j=0;j<4;++j){
-                dictMaxValAtmo = dictUnitMaxValueAtmo[measurement[i+j].getAttribute().getUnit()];
+                advance(it, i+j);
+                dictMaxValAtmo = dictUnitAtmoMaxValue[it->getAttribute().getUnit()];
                 for(int atmo=1;atmo<=10;++atmo){
-                    if(dictMaxValAtmo[atmo]>= ((int)measurement[i+j].getValue()) && atmo>1){
+                    if(dictMaxValAtmo[atmo]>= ((int)it->getValue()) && atmo>1){
                         atmo_final=max(atmo_final,atmo);
                         break;
                     }
@@ -36,10 +40,12 @@ int Sensor::calculateAtmoIndex(Timestamp timeStamp =  std::chrono::system_clock:
 }
 
 
-bool Sensor::hasMeasurementAtTime(Timestamp timeStamp){
+bool Sensor::hasMeasurementAtTime(Timestamp timeStamp) const{
     bool res = false;
-    for(int i=0;i<sizeMeasurementList;i+=4){
-        if (measurement[i].getTimestamp()==timeStamp){
+    auto it = measurements.begin();
+    for(int i=0;i<measurements.size();i+=4){
+        advance(it, i);
+        if (it->getTimeStamp()==timeStamp){
             res = true;
             break;                
         }
@@ -48,10 +54,12 @@ bool Sensor::hasMeasurementAtTime(Timestamp timeStamp){
     return res;
 }
 
-vector<Timestamp> Sensor::getMeasurementTimestamps(){ //!!!!!!!!!!!!!!!!!!!!! set et non list
+vector<Timestamp> Sensor::getMeasurementTimestamps() const { //!!!!!!!!!!!!!!!!!!!!! set et non list
     set <Timestamp> liste_timestamps;
-    for(int i=0;i<sizeMeasurementList;++i){
-        liste_timestamps.insert(measurement[i].getTimestamp());
+    auto it = measurements.begin();
+    for(int i=0;i<measurements.size();++i){
+        advance(it, i);
+        liste_timestamps.insert(it->getTimeStamp());
     }
 
     vector<Timestamp> liste_finale(liste_timestamps.begin(), liste_timestamps.end());
@@ -63,13 +71,19 @@ Sensor::Sensor(){
     initDictUnit(); 
 }
 //boolean addMeasurement(Measurement measurement)??
-Sensor::Sensor(string sensor_ID, float latitudeInit, float longitudeInit){
+Sensor::Sensor(string sensor_ID, float latitudeInit, float longitudeInit, PrivateIndividual * privateIndiv) {
     sensorID = sensor_ID;
-    coordinates.latitude = latitudeInit;
-    coordinates.longitude = longitudeInit;
+    coordinates = new Coordinates(latitudeInit, longitudeInit);
+    privateIndividual = privateIndiv;
+    measurements = list<Measurement>();
     initDictUnit();
 }
-Sensor::~Sensor(){}
+Sensor::~Sensor(){
+    #ifdef MAP
+        cout << "Appel au destructeur de <Sensor>" << endl;
+    #endif
+    delete coordinates;
+}
 
 
 
@@ -116,7 +130,7 @@ void Sensor::initDictUnit(){
     //PM10
     dictUnitAtmoMaxValue["PM10"][1]=6;
     dictUnitAtmoMaxValue["PM10"][2]=13;
-    dictUnitAtmoMaxValue["PM10"][3]=20
+    dictUnitAtmoMaxValue["PM10"][3]=20;
     dictUnitAtmoMaxValue["PM10"][4]=27;
     dictUnitAtmoMaxValue["PM10"][5]=34;
     dictUnitAtmoMaxValue["PM10"][6]=41;
