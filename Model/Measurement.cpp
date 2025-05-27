@@ -8,6 +8,8 @@
 
 //-------------------------------------------------------- Include système
 #include <ctime>
+#include <chrono>
+using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 #include <string>
 using namespace std;
 
@@ -29,7 +31,7 @@ Attribute Measurement::getAttribute() const {
     return attribute;
 }
 
-time_t Measurement::getTimeStamp() const {
+Timestamp Measurement::getTimeStamp() const {
     return timestamp;
 }
 
@@ -37,7 +39,7 @@ time_t Measurement::getTimeStamp() const {
 
 //-------------------------------------------- Constructeurs - destructeur
 
-Measurement::Measurement(time_t time, float valeur, string capteurID, Attribute attribut){
+Measurement::Measurement(Timestamp time, float valeur, string capteurID, Attribute attribut){
     timestamp = time;
     attribute = attribut;
     sensorID = capteurID;
@@ -45,7 +47,7 @@ Measurement::Measurement(time_t time, float valeur, string capteurID, Attribute 
 }
 
 Measurement::Measurement(){
-    timestamp = 0;
+    timestamp = chrono::system_clock::now();
     value = 0.0f;
     sensorID = "";
     attribute = Attribute();
