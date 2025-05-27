@@ -3,6 +3,7 @@
 #include <chrono>
 #include <set>
 #include <vector>
+#include "Sensor.h"
 using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 #include "../Model/Coordinates.h"
 #include "../Model/Measurement.h"
