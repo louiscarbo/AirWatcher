@@ -10,6 +10,8 @@
 #include <chrono>
 #include <string>
 #include <vector>
+#include <list>
+using namespace std;
 using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 #include "../Model/Coordinates.h"
 
