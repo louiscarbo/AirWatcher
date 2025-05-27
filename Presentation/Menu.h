@@ -3,7 +3,7 @@
 *************************************************************************/
 
 //---------- Interface de la classe <Menu> (fichier Menu.h) ----------------
-#include "Services/UseCasesManager.h"
+#include "../Services/UseCasesManager.h"
 #if ! defined ( Menu_H )
 #define Menu_H
 
