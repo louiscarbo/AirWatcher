@@ -19,7 +19,7 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-string Attribute::getUnit() {
+string Attribute::getUnit() const {
     return unit;
 }
 
