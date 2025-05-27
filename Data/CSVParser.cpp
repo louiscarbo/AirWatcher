@@ -1,9 +1,5 @@
 /*************************************************************************
                            CSVParser
-                             -------------------
-    début                : $DATE$
-    copyright            : (C) $YEAR$ par $AUTHOR$
-    e-mail               : $EMAIL$
 *************************************************************************/
 
 //---------- Réalisation de la classe <CSVParser> (fichier CSVParser.cpp) ------------
@@ -13,18 +9,18 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
-
-//------------------------------------------------------ Include personnel
-#include "CSVParser.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
-
 #include <vector>
 #include <string>
 #include <unordered_map>
 
+//------------------------------------------------------ Include personnel
+#include "CSVParser.h"
+#include "../Utils.cpp"
 
+using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 
 //------------------------------------------------------------- Constantes
 
@@ -80,11 +76,12 @@ vector<Sensor> CSVParser::loadSensors (){
         auto cols = splitLine(line);
 
         if (cols.size() <3) continue; //3 car 
-        Sensor s( 
-            cols[0],
-            Coordinates {
-                stod(cols[1]),
-                stod(cols[2]) }
+        Sensor s(
+                cols[0],
+                Coordinates {
+                    stod(cols[1]),
+                    stod(cols[2])
+                }
             );
         sensors.push_back(move(s));
     }
@@ -109,7 +106,7 @@ vector<Measurement> CSVParser::loadMeasurements (){
         if (cols.size() <4) continue; //4 car 4 colonnes
 
         mesures.emplace_back(
-            TimeStamp::fromString(cols[0]),
+            parseTimestamp(cols[0]),
             stof(cols[3]),
             cols[1],
             Attribute{cols[2],"",""}
@@ -137,13 +134,12 @@ vector<Cleaner> CSVParser::loadCleaners (){
 
         Cleaner c(
             cols[0],
-            TimeStamp::fromString(cols[3]),
-            TimeStamp::fromString(cols[4]),
-            Coordinates {
+            parseTimestamp(cols[3]),
+            parseTimestamp(cols[4]),
                 stod(cols[1]),
-                stod(cols[2]) }
-            );
-            cleaners.push_back(move(c));
+                stod(cols[2])
+        );
+        cleaners.push_back(move(c));
     }
     return cleaners; 
 }
@@ -173,7 +169,7 @@ vector<PrivateIndividual> CSVParser::loadPrivateIndividuals() {
                 userName,
                 PrivateIndividual(userName, true, 0)
             );
-            it = pairIt;
+            it = ins;
         }
         // ajoute le capteur à cet utilisateur
         it->second.AddSensor(sensorID);

@@ -73,7 +73,7 @@ public:
 private:
 //----------------------------------------------------- Méthodes protégées
 
-    vector<string> CSVParser :: splitLine (const string & ligne, char delimiter=';');
+    vector<string> splitLine (const string & ligne, char delimiter=';');
 //----------------------------------------------------- Attributs protégés
     string path;
 };
