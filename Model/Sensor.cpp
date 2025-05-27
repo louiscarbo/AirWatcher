@@ -4,10 +4,7 @@
 
 class Sensor{
    public:
-       list<Date> getMeasurementTimestamps(){
-
-
-       }
+       
        Coordinates getCoordinates(){
            return coordinates;
        }
@@ -52,9 +49,6 @@ class Sensor{
             }
         }
 
-        Coordinates getCoordinates(){
-            return coordinates;
-        }
 
 
        //boolean addMeasurement(Measurement measurement)??
