@@ -41,6 +41,10 @@ public:
     // Contrat :
     //  - center doit être un objet de type Coordinates valide.
 
+    set<Sensor> findSensorsWithinRadius(Coordinates centerCoords, float R);
+
+    int ComputeAtmoIndexInArea(Coordinates centerCoords,float R, Timestamp timestamp);
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur

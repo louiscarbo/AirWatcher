@@ -23,7 +23,7 @@ int Sensor::calculateMeanAtmoIndex(Timestamp timeStamp =  std::chrono::system_cl
     for(int i=0;i<measurements.size();i+=4){
         advance(it, i);
         if (it->getTimeStamp()==timeStamp){
-            for(int j=0;j<4;++j){
+            for(int j=0;j<4;++j){ //Attention : possible que si les mesures ordonnées comme dans le csv
                 advance(it, i+j);
                 dictMaxValAtmo = dictUnitAtmoMaxValue[it->getAttribute().getUnit()];
                 for(int atmo=1;atmo<=10;++atmo){
@@ -64,6 +64,10 @@ vector<Timestamp> Sensor::getMeasurementTimestamps() const { //!!!!!!!!!!!!!!!!!
 
     vector<Timestamp> liste_finale(liste_timestamps.begin(), liste_timestamps.end());
     return liste_finale;
+}
+
+void Sensor::addMeasurement(Measurement measurement){
+    measurements.push_back(measurement);
 }
 
 

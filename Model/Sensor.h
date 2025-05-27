@@ -13,6 +13,7 @@
 #include <list>
 #include <set>
 #include <map>
+#include <limits.h> 
 using namespace std;
 using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 #include "../Model/Coordinates.h"
@@ -58,6 +59,9 @@ public:
     //  Vérifie si le capteur a une mesure à un horodatage donné.
     // Contrat :
     //  - at doit être un horodatage valide.
+
+    void addMeasurement(Measurement measurement);
+    //ajout de measurement à la fin de la liste des measurements
 
 //------------------------------------------------- Surcharge d'opérateurs
 

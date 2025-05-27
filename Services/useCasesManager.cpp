@@ -160,9 +160,9 @@ vector<pair<Sensor, double>> UseCasesManager::identifySuspiciousSensors()
 }
 
 set<Sensor> UseCasesManager::findSensorsWithinRadius(Coordinates centerCoords, float R){
-    set<Sensor> = sensorsWithinRadius;
-    for(sensor : Sensor){
-        if ((sensor.getCoordinates().getLatitude()>=(centerCoords.getLatitude()-R)) && (sensor.getCoordinates().getLatitude()<=(centerCoords.getLatitude()+R))&&(sensor.getCoordinates().getLongitude()>=(centerCoords.getLongitude()-R))&&(sensor.getCoordinates().getLongitude()<=(centerCoords.getLongitude()+R))){
+    set<Sensor> sensorsWithinRadius;
+    for(auto sensor : sensors){
+        if ((sensor.getCoordinates()->getLatitude()>=(centerCoords.getLatitude()-R)) && (sensor.getCoordinates()->getLatitude()<=(centerCoords.getLatitude()+R))&&(sensor.getCoordinates()->getLongitude()>=(centerCoords.getLongitude()-R))&&(sensor.getCoordinates()->getLongitude()<=(centerCoords.getLongitude()+R))){
             sensorsWithinRadius.insert(sensor);
         }
     }
@@ -180,13 +180,14 @@ int UseCasesManager::ComputeAtmoIndexInArea(Coordinates centerCoords,float R, Ti
     // Accumulate weighted ATMO values
     float weightedSum = 0.0;
     float totalWeight = 0.0;
+    float weight;
     int atmo;
     float d;
-    for (sensor: sensors){
+    for (auto sensor: sensors){
         if(sensor.hasMeasurementAtTime(timestamp)){
             atmo = sensor.calculateMeanAtmoIndex(timestamp);
             d = distance(centerCoords, sensor.getCoordinates()); //????????????????????????????????????????????????????????
-            weight = max(0, (R-d)/R);
+            weight = max((float)0, (R-d)/R);
             weightedSum += (weight*atmo);
             totalWeight += weight;
         }
@@ -196,7 +197,7 @@ int UseCasesManager::ComputeAtmoIndexInArea(Coordinates centerCoords,float R, Ti
         printf("No data at timestamp\n");
         return NULL;
     }else{
-        return weightedSum/totalWeight
+        return weightedSum/totalWeight;
     }
 }
 
