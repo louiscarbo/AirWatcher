@@ -35,7 +35,7 @@ public:
     // Contrat :
     //  - La liste de capteurs doit être initialisée avant d'appeler cette méthode.
 
-    set<Sensor> findSensorsWithinRadius(const Coordinates& center, double radius);
+    vector<Sensor> findSensorsWithinRadius(const Coordinates& center, double radius);
     // Mode d'emploi :
     //  Renvoie une liste de capteurs situés dans un rayon donné autour d'un point central.
     //  Le rayon est en kilomètres.
