@@ -27,6 +27,7 @@ public:
 
     double getLatitude() const;
     double getLongitude() const;
+    static Coordinates parseCoordinates(const std::string &input);
 
 //------------------------------------------------- Surcharge d'opérateurs
 
