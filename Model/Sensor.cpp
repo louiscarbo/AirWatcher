@@ -1,6 +1,6 @@
 #include <string>
 #include <ctime>
-
+#include <set>
 
 class Sensor{
    public:
@@ -15,8 +15,8 @@ class Sensor{
            int sizeMeasurementList = sizeof(measurements)/sizeof(Measurement);
            int atmo_final = 0;
            map<int,int> dictMaxValAtmo;
-           for(int i=0;i<sizeMeasurementList;++i){
-               if (measurement[i].getTimestamp==timeStamp){
+           for(int i=0;i<sizeMeasurementList;i+=4){
+               if (measurement[i].getTimestamp()==timeStamp){
                    for(int j=0;j<4;++j){
                        dictMaxValAtmo = dictUnitMaxValueAtmo[measurement[i+j].getAttribute().getUnit()];
                        for(int atmo=1;atmo<=10;++atmo){
@@ -26,14 +26,35 @@ class Sensor{
                            }
                        }
                    }
+                   
                }
            }
            return atmo_final;
        }
+
+
        boolean hasMeasurementAtTime(Date timeStamp){
+            boolean res = false;
+            for(int i=0;i<sizeMeasurementList;i+=4){
+                if (measurement[i].getTimestamp()==timeStamp){
+                    res = true;
+                    break;                
+                }
 
+            }
+            return res;
+        }
 
-       }
+        set<Date> getMeasurementTimestamps(){ //!!!!!!!!!!!!!!!!!!!!! set et non list
+            set <Date> liste_timestamps;
+            for(int i=0;i<sizeMeasurementList;++i){
+                liste_timestamps.insert(measurement[i].getTimestamp());
+            }
+        }
+
+        Coordinates getCoordinates(){
+            return coordinates;
+        }
 
 
        //boolean addMeasurement(Measurement measurement)??
