@@ -70,7 +70,7 @@ vector<Sensor> CSVParser::loadSensors (){
 
     if (!file) {
         cerr <<"Erreur ouverture du fichier contenant les capteurs (sensors)";
-        return attributs;   
+        return sensors;   
     }
 
     string line;

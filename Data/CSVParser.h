@@ -18,12 +18,12 @@ using namespace std;
 
 
 //--------------------------------------------------- Interfaces utilisées
-#include "useCasesManager.h"
-#include "Sensor.h"
-#include "Measurement.h"
-#include "Cleaner.h"
-#include "PrivateIndividual.h"
-#include "Attribute.h"
+#include "../Services/UseCasesManager.h"
+#include "../Model/Sensor.h"
+#include "../Model/Measurement.h"
+#include "../Model/Cleaner.h"
+#include "../Model/PrivateIndividual.h"
+#include "../Model/Attribute.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -42,7 +42,7 @@ class CSVParser
 public:
 //----------------------------------------------------- Méthodes publiques
     
-    vector<Attributes> loadAttributes();
+    vector<Attribute> loadAttributes();
     // Charge et retourne la liste de tous les attributs  (attributes.csv)
     
     vector<Sensor> loadSensors();
