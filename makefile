@@ -11,7 +11,7 @@ TARGET    = $(BUILD_DIR)/airwatcher
 # --------------------------
 # AUTO-DETECTION DES .cpp
 # --------------------------
-SOURCES = $(wildcard $(foreach dir,$(SRC_DIRS),$(dir)/*.cpp))
+SOURCES = main.cpp $(wildcard $(foreach dir,$(SRC_DIRS),$(dir)/*.cpp))
 OBJECTS = $(SOURCES:.cpp=.o)
 
 # --------------------------
