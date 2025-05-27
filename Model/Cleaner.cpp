@@ -11,6 +11,8 @@
 //------------------------------------------------------ Include personnel
 #include <string>
 #include <ctime>
+#include <chrono>
+using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 using namespace std;
 #include "Cleaner.h"
 #include "Coordinates.h"
@@ -21,11 +23,11 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-time_t Cleaner::getTimestamp_start() const {
+Timestamp Cleaner::getTimestamp_start() const {
     return timestamp_start;
 }
 
-time_t Cleaner::getTimestamp_stop() const {
+Timestamp Cleaner::getTimestamp_stop() const {
     return timestamp_stop;
 }
 
@@ -42,12 +44,12 @@ Cleaner::Cleaner() {
         cout << "Appel au constructeur par défaut de <Cleaner>" << endl;
     #endif
     this->cleanerID = "";
-    this->timestamp_start = 0;
-    this->timestamp_stop = 0;
+    this->timestamp_start = chrono::system_clock::now();
+    this->timestamp_stop = chrono::system_clock::now();
     this->coordinates = new Coordinates();
 }
 
-Cleaner::Cleaner(string cleanerID, time_t timestamp_start, time_t timestamp_stop, double uneLatitude, double uneLongitude) {
+Cleaner::Cleaner(string cleanerID, Timestamp timestamp_start, Timestamp timestamp_stop, double uneLatitude, double uneLongitude) {
     #ifdef MAP
         cout << "Appel au constructeur de <Cleaner>" << endl;
     #endif

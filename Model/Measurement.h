@@ -18,6 +18,8 @@
 //------------------------------------------------------------------------
 
 #include <ctime>
+#include <chrono>
+using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 #include <string>
 #include "Attribute.h"
 using namespace std;
@@ -39,7 +41,7 @@ class Measurement {
         // Contrat :
         //
 
-        time_t getTimeStamp() const;
+        Timestamp getTimeStamp() const;
         // Mode d'emploi :
         // Retourne le timestamp de la mesure.
         // Contrat :
@@ -48,7 +50,7 @@ class Measurement {
         //------------------------------------------------- Surcharge d'opérateurs
 
         //-------------------------------------------- Constructeurs - destructeur
-        Measurement(time_t time, float valeur, string capteurID, Attribute attribut);
+        Measurement(Timestamp time, float valeur, string capteurID, Attribute attribut);
         // Mode d'emploi :
         // Constructeur de la classe Measurement.
         // Contrat :
@@ -71,7 +73,7 @@ class Measurement {
     //----------------------------------------------------- Méthodes protégées
 
     //----------------------------------------------------- Attributs protégés
-        time_t timestamp;
+        Timestamp timestamp;
         float value;
         string sensorID;
         Attribute attribute;

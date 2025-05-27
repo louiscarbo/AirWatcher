@@ -19,6 +19,8 @@
 //------------------------------------------------------------------------
 #include <string>
 #include <ctime>
+#include <chrono>
+using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 using namespace std;
 #include "Coordinates.h"
 
@@ -29,13 +31,13 @@ class Cleaner
 public:
 //----------------------------------------------------- Méthodes publiques
 
-    time_t getTimestamp_start() const;
+    Timestamp getTimestamp_start() const;
     // Mode d'emploi :
     // Retourne le timestamp de début du Cleaner.
     // Contrat :
     //
 
-    time_t getTimestamp_stop() const;
+    Timestamp getTimestamp_stop() const;
     // Mode d'emploi :
     // Retourne le timestamp de fin du Cleaner.
     // Contrat :
@@ -56,7 +58,7 @@ public:
     // Contrat :
     //
 
-    Cleaner (string cleanerID, time_t timestamp_start, time_t timestamp_stop, double uneLatitude, double uneLongitude);
+    Cleaner (string cleanerID, Timestamp timestamp_start, Timestamp timestamp_stop, double uneLatitude, double uneLongitude);
     // Mode d'emploi :
     // Constructeur de la classe Cleaner avec paramètres.
     // Contrat :
@@ -75,8 +77,8 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
     string cleanerID;
-    time_t timestamp_start;
-    time_t timestamp_stop;
+    Timestamp timestamp_start;
+    Timestamp timestamp_stop;
     Coordinates * coordinates;
 
 };
