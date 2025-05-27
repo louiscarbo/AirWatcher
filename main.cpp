@@ -21,19 +21,22 @@ int main() {
         if (!profileSelected) {
             menu.displayProfileSelectionMenu();
             profileSelected = true;
+            cout << "\n\n" << endl;
         }
 
         // Afficher le menu principal adapté au rôle utilisateur
         menu.displayMainMenu();
-        // Lire l'option choisie par l'utilisateur
         std::string optionStr = menu.getUserInput("Veuillez sélectionner une option (ou 'q' pour quitter): ");
-        
+        cout << "\n\n" << endl;
+
         if (optionStr == "q") {
             applicationRunning = false;
         } else {
             int option = std::stoi(optionStr);
             menu.selectFunctionality(option);
         }
+
+        cout << "\n\n" << endl;
     }
 
     cout << "Exiting the application. Goodbye!" << endl;
