@@ -69,12 +69,7 @@ class Sensor{
 
 
    protected :
-       string sensorID;
-       string ownerID;
-       Coordinates coordinates;
-       list<Measurement> measurements;
-       PrivateIndividual privateIndividual;
-       map<string,map<int,int>> dictUnitAtmoMaxValue;
+       
        void initDictUnit(){
            //O3
            dictUnitAtmoMaxValue["O3"][1]=29;
