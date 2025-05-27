@@ -9,6 +9,8 @@ class Attribute {
         Attribute(string attributeID, string unit, string description);
 
         Attribute();
+
+        string getUnit();
         
         ~Attribute();
     protected:
