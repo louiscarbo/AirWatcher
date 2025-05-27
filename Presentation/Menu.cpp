@@ -9,13 +9,47 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
+#include <string>
+#include <ctime>
+#include <chrono>
 
 //------------------------------------------------------ Include personnel
 #include "Menu.h"
+#include "../Model/Coordinates.h"
+using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
+
 
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
+
+//------------------------------------------------------------ Utilitaires
+static Timestamp parseTimestamp(const std::string &input)
+{
+    // attend le format "YYYY-MM-DD HH:MM:SS" (longueur 19)
+    if (input.size() != 19
+     || input[4] != '-' || input[7] != '-'
+     || input[10] != ' ' || input[13] != ':' || input[16] != ':')
+    {
+        return Timestamp::min();
+    }
+
+    std::tm tm = {};
+    try {
+        tm.tm_year = std::stoi(input.substr(0,4)) - 1900;
+        tm.tm_mon  = std::stoi(input.substr(5,2)) - 1;
+        tm.tm_mday = std::stoi(input.substr(8,2));
+        tm.tm_hour = std::stoi(input.substr(11,2));
+        tm.tm_min  = std::stoi(input.substr(14,2));
+        tm.tm_sec  = std::stoi(input.substr(17,2));
+    } catch (...) {
+        return Timestamp::min();
+    }
+
+    // mktime assume tm en heure locale
+    std::time_t tt = std::mktime(&tm);
+    return std::chrono::system_clock::from_time_t(tt);
+}
 
 //----------------------------------------------------- Méthodes publiques
 // type Menu::Méthode ( liste des paramètres )
@@ -162,11 +196,31 @@ void Menu::calculateAirQualityAtMoment()
 void Menu::calculateMeanAirQualityArea()
 {
     #ifdef MAP
-        cout << "Appel à calculateMeanAirQualityArea" << endl;
+        std::cout << "Appel à calculateMeanAirQualityArea" << std::endl;
     #endif
     
-    cout << "--- Calculate the Average Air Quality in a Given Area ---" << endl;
-    cout << "A faire." << endl;
+    std::cout << "\n--- Calculate the Average Air Quality in a Given Area ---\n";
+
+    // Lecture des coordonnées
+    std::string coordInput = getUserInput("Enter center coordinates (lat,lon): ");
+    Coordinates center = Coordinates::parseCoordinates(coordInput);
+
+    std::string radiusInput = getUserInput("Enter radius (km): ");
+    float radius = std::stof(radiusInput);
+
+    // Lecture de l'instant souhaité
+    std::string tsInput = getUserInput("Enter timestamp (YYYY-MM-DD HH:MM:SS): ");
+    Timestamp ts = parseTimestamp(tsInput);
+
+    // Calcul avec le Manager
+    int result = manager.ComputeAtmoIndexInArea(center, radius, ts);
+
+    // Affichage du résultat
+    if (result < 0) {
+        std::cout << "No data available at that time or within that area.\n";
+    } else {
+        std::cout << "Mean ATMO index over the area: " << result << "\n";
+    }
 }
 
 void Menu::identifyAreasWithSimilarAirQuality()
@@ -182,11 +236,31 @@ void Menu::identifyAreasWithSimilarAirQuality()
 void Menu::identifyMalfunctioningSensors()
 {
     #ifdef MAP
-        cout << "Appel à identifyMalfunctioningSensors" << endl;
+        std::cout << "Appel à identifyMalfunctioningSensors" << std::endl;
     #endif
     
-    cout << "--- Identify malfunctioning or malicious sensors ---" << endl;
-    cout << "A faire." << endl;
+    std::cout << "\n--- Identify Malfunctioning or Malicious Sensors ---\n";
+
+    auto scored = manager.identifySuspiciousSensors();
+
+    if (scored.empty()) {
+        std::cout << "No sensors found.\n";
+        return;
+    }
+
+    std::cout << "Sensor ID     | Suspicion Score\n";
+    std::cout << "--------------+----------------\n";
+    for (auto &p : scored) {
+        const Sensor &s = p.first;
+        double score   = p.second;
+        std::cout 
+            << s.getSensorID() 
+            << std::string(14 - s.getSensorID().size(), ' ')
+            << "| " 
+            << score 
+            << "\n";
+    }
+    std::cout << std::endl;
 }
 
 void Menu::observeCleanerImpact()
