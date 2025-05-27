@@ -25,10 +25,19 @@ class Coordinates
 public:
 //----------------------------------------------------- Méthodes publiques    
 
+    double getLatitude() const;
+    double getLongitude() const;
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
     Coordinates ( );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
+    Coordinates (double uneLatitude, double uneLongitude);
     // Mode d'emploi :
     //
     // Contrat :

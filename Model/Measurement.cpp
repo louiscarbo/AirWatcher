@@ -21,15 +21,15 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-float Measurement::getValue(){
+float Measurement::getValue() const{
     return value;
 }
 
-Attribute Measurement::getAttribute(){
+Attribute Measurement::getAttribute() const {
     return attribute;
 }
 
-time_t Measurement::getTimeStamp(){
+time_t Measurement::getTimeStamp() const {
     return timestamp;
 }
 
