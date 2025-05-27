@@ -19,6 +19,10 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+string Attribute::getUnit() {
+    return unit;
+}
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur

@@ -44,6 +44,13 @@ Measurement::Measurement(time_t time, float valeur, string capteurID, Attribute 
     value = valeur;
 }
 
+Measurement::Measurement(){
+    timestamp = 0;
+    value = 0.0f;
+    sensorID = "";
+    attribute = Attribute();
+}
+
 Measurement::~Measurement ( ){
 #ifdef MAP
     cout << "Appel au destructeur de <Measurement>" << endl;
