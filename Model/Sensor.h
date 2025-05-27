@@ -68,6 +68,9 @@ public:
     //  Renvoie l'identifiant du capteur.
 
 //------------------------------------------------- Surcharge d'opérateurs
+    bool operator<(const Sensor & other) const {
+        return sensorID < other.sensorID;
+    }
 
 //-------------------------------------------- Constructeurs - destructeur
     Sensor ( );
@@ -75,6 +78,9 @@ public:
     //
     // Contrat :
     //
+
+    Sensor(std::__1::string sensorId, Coordinates coordinates);
+
     Sensor(string sensor_ID, float latitudeInit, float longitudeInit, PrivateIndividual * privateIndiv = nullptr);
 
     virtual ~Sensor ( );
