@@ -159,6 +159,17 @@ vector<pair<Sensor, double>> UseCasesManager::identifySuspiciousSensors()
     return scoredSensors;
 }
 
+set<Sensor> UseCasesManager::findSensorsWithinRadius(Coordinates centerCoords, float R){
+    set<Sensor> = sensorsWithinRadius;
+    for(sensor : Sensor){
+        if ((sensor.getCoordinates().getLatitude()>=(centerCoords.getLatitude()-R)) && (sensor.getCoordinates().getLatitude()<=(centerCoords.getLatitude()+R))&&(sensor.getCoordinates().getLongitude()>=(centerCoords.getLongitude()-R))&&(sensor.getCoordinates().getLongitude()<=(centerCoords.getLongitude()+R))){
+            sensorsWithinRadius.insert(sensor);
+        }
+    }
+    return sensorsWithinRadius;
+}
+
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
