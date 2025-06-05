@@ -15,7 +15,6 @@ using namespace std;
 #include <numeric>    // For accumulate
 #include <cmath>      // For abs
 #include <chrono>
-using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 
 //------------------------------------------------------ Include personnel
 #include "UseCasesManager.h"
@@ -115,11 +114,11 @@ vector<pair<Sensor, double>> UseCasesManager::identifySuspiciousSensors()
             
             for (auto& time : times) {
                 double selfValue = sensor.calculateMeanAtmoIndex(time);
-                vector<Sensor> neighbors = findSensorsWithinRadius(sensor.getCoordinates(), NEIGHBOR_RADIUS_KM);
+                vector<Sensor> neighbors = findSensorsWithinRadius(*sensor.getCoordinates(), NEIGHBOR_RADIUS_KM);
 
                 vector<double> neighborValues;
                 for (auto& neighbor : neighbors) {
-                    if (neighbor.hasMeasurementAt(time)) {
+                    if (neighbor.hasMeasurementAtTime(time)) {
                         neighborValues.push_back(neighbor.calculateMeanAtmoIndex(time));
                     }
                 }
@@ -159,34 +158,37 @@ vector<pair<Sensor, double>> UseCasesManager::identifySuspiciousSensors()
     return scoredSensors;
 }
 
-set<Sensor> UseCasesManager::findSensorsWithinRadius(Coordinates centerCoords, float R){
-    set<Sensor> = sensorsWithinRadius;
-    for(sensor : Sensor){
-        if ((sensor.getCoordinates().getLatitude()>=(centerCoords.getLatitude()-R)) && (sensor.getCoordinates().getLatitude()<=(centerCoords.getLatitude()+R))&&(sensor.getCoordinates().getLongitude()>=(centerCoords.getLongitude()-R))&&(sensor.getCoordinates().getLongitude()<=(centerCoords.getLongitude()+R))){
+vector<Sensor> UseCasesManager::findSensorsWithinRadius(const Coordinates& centerCoords, double R){
+    set<Sensor> sensorsWithinRadius;
+    for(auto sensor : sensors){
+        if ((sensor.getCoordinates()->getLatitude()>=(centerCoords.getLatitude()-R)) && (sensor.getCoordinates()->getLatitude()<=(centerCoords.getLatitude()+R))&&(sensor.getCoordinates()->getLongitude()>=(centerCoords.getLongitude()-R))&&(sensor.getCoordinates()->getLongitude()<=(centerCoords.getLongitude()+R))){
             sensorsWithinRadius.insert(sensor);
         }
     }
-    return sensorsWithinRadius;
+    vector<Sensor> liste_finale(sensorsWithinRadius.begin(), sensorsWithinRadius.end());
+    return liste_finale;
+
 }
 
 int UseCasesManager::ComputeAtmoIndexInArea(Coordinates centerCoords,float R, Timestamp timestamp){
     // Find all sensors in circle
-    set<Sensor> sensors = findSensorsWithinRadius(centerCoords, R);
+    vector<Sensor> sensors = findSensorsWithinRadius(centerCoords, R);
 
     if (sensors.empty()){
         printf("No data available\n");
-        return NULL;//???????????????????????????????????????????????????????????????????????????????????????????
+        return NULL;
     }
     // Accumulate weighted ATMO values
     float weightedSum = 0.0;
     float totalWeight = 0.0;
+    float weight;
     int atmo;
     float d;
-    for (sensor: sensors){
+    for (auto sensor: sensors){
         if(sensor.hasMeasurementAtTime(timestamp)){
             atmo = sensor.calculateMeanAtmoIndex(timestamp);
-            d = distance(centerCoords, sensor.getCoordinates()); //????????????????????????????????????????????????????????
-            weight = max(0, (R-d)/R);
+            d = Coordinates::distance(centerCoords, *sensor.getCoordinates());
+            weight = max((float)0, (R-d)/R);
             weightedSum += (weight*atmo);
             totalWeight += weight;
         }
@@ -196,7 +198,7 @@ int UseCasesManager::ComputeAtmoIndexInArea(Coordinates centerCoords,float R, Ti
         printf("No data at timestamp\n");
         return NULL;
     }else{
-        return weightedSum/totalWeight
+        return weightedSum/totalWeight;
     }
 }
 

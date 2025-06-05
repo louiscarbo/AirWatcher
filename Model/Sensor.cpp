@@ -2,6 +2,7 @@
 #include <ctime>
 #include <chrono>
 #include <set>
+#include <iostream>
 #include <vector>
 #include "Sensor.h"
 using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
@@ -9,8 +10,6 @@ using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 #include "../Model/Measurement.h"
 #include <map>
 using namespace std;
-
-
  
 Coordinates * Sensor::getCoordinates() const{
     return coordinates;
@@ -23,7 +22,7 @@ int Sensor::calculateMeanAtmoIndex(Timestamp timeStamp =  std::chrono::system_cl
     for(int i=0;i<measurements.size();i+=4){
         advance(it, i);
         if (it->getTimeStamp()==timeStamp){
-            for(int j=0;j<4;++j){
+            for(int j=0;j<4;++j){ //Attention : possible que si les mesures ordonnées comme dans le csv
                 advance(it, i+j);
                 dictMaxValAtmo = dictUnitAtmoMaxValue[it->getAttribute().getUnit()];
                 for(int atmo=1;atmo<=10;++atmo){
@@ -74,11 +73,29 @@ vector<Timestamp> Sensor::getMeasurementTimestamps() const { //!!!!!!!!!!!!!!!!!
     return liste_finale;
 }
 
+void Sensor::addMeasurement(Measurement measurement){
+    measurements.push_back(measurement);
+}
+
 
 Sensor::Sensor(){
     initDictUnit(); 
 }
-//boolean addMeasurement(Measurement measurement)??
+
+Sensor::Sensor(std::__1::string sensorId, Coordinates coordinates)
+{
+    #ifdef MAP
+        cout << "Appel au constructeur de <Sensor>" << endl;
+    #endif
+    sensorID = sensorId;
+    this->coordinates = new Coordinates(coordinates);
+    cout << "Attention : le constructeur Sensor(String, Coordinates) n'associe pas de private Individual (Comportement anormal ?)." << endl;
+    privateIndividual = nullptr;
+    measurements = list<Measurement>();
+    initDictUnit();
+}
+
+// boolean addMeasurement(Measurement measurement)??
 Sensor::Sensor(string sensor_ID, float latitudeInit, float longitudeInit, PrivateIndividual * privateIndiv) {
     sensorID = sensor_ID;
     coordinates = new Coordinates(latitudeInit, longitudeInit);

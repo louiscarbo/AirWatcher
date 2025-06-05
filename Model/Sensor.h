@@ -13,6 +13,7 @@
 #include <list>
 #include <set>
 #include <map>
+#include <limits.h> 
 using namespace std;
 using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 #include "../Model/Coordinates.h"
@@ -59,11 +60,17 @@ public:
     // Contrat :
     //  - at doit être un horodatage valide.
 
+    void addMeasurement(Measurement measurement);
+    //ajout de measurement à la fin de la liste des measurements
+
     string getSensorID() const;
     // Mode d'emploi :
     //  Renvoie l'identifiant du capteur.
 
 //------------------------------------------------- Surcharge d'opérateurs
+    bool operator<(const Sensor & other) const {
+        return sensorID < other.sensorID;
+    }
 
 //-------------------------------------------- Constructeurs - destructeur
     Sensor ( );
@@ -71,6 +78,9 @@ public:
     //
     // Contrat :
     //
+
+    Sensor(std::__1::string sensorId, Coordinates coordinates);
+
     Sensor(string sensor_ID, float latitudeInit, float longitudeInit, PrivateIndividual * privateIndiv = nullptr);
 
     virtual ~Sensor ( );

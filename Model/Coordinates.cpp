@@ -38,6 +38,12 @@ Coordinates Coordinates::parseCoordinates(const std::string &input) {
     return Coordinates(lat, lon);
 }
 
+float Coordinates::distance(const Coordinates &c1, const Coordinates &c2) {
+    double latDiff = c1.latitude - c2.latitude;
+    double lonDiff = c1.longitude - c2.longitude;
+    return static_cast<float>(sqrt(latDiff * latDiff + lonDiff * lonDiff));
+}
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur

@@ -7,6 +7,7 @@
 #define Coordinates_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include <string>
 
 //------------------------------------------------------------- Constantes
 
@@ -26,8 +27,14 @@ public:
 //----------------------------------------------------- Méthodes publiques    
 
     double getLatitude() const;
+
     double getLongitude() const;
+
     static Coordinates parseCoordinates(const std::string &input);
+
+    static float distance(const Coordinates &c1, const Coordinates &c2);
+    // Mode d'emploi :
+    //   Renvoie la distance entre deux coordonnées en kilomètres.
 
 //------------------------------------------------- Surcharge d'opérateurs
 
