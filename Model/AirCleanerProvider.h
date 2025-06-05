@@ -45,7 +45,7 @@ private:
 //----------------------------------------------------- Méthodes protégées
 //----------------------------------------------------- Attributs protégés
     std::string providerID;
-    std::vector<Cleaner>  cleaners;
+    std::vector<string>  cleanersID; //stocker que les ID
 };
 
 //-------------------------------- Autres définitions dépendantes de <Xxx>

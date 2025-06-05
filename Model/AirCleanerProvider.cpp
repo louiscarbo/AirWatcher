@@ -27,12 +27,12 @@ const std::string& AirCleanerProvider::GetProviderID() const {
     return providerID;
 }
 
-const std::vector<Cleaner>& AirCleanerProvider::GetCleaners() const {
-    return cleaners;
+void AirCleanerProvider::GetCleaners() const {
+    return cleanersID;
 }
 
-void AirCleanerProvider::AddCleaner(const Cleaner& cleaner) {
-    cleaners.push_back(cleaner);
+void AirCleanerProvider::AddCleanerID(const Cleaner& cleanerID) {
+    cleanersID.push_back(cleanerID);
 }
 //------------------------------------------------- Surcharge d'opérateurs
 

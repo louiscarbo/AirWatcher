@@ -24,6 +24,8 @@ using namespace std;
 #include "../Model/Cleaner.h"
 #include "../Model/PrivateIndividual.h"
 #include "../Model/Attribute.h"
+#include "../Model/AirCleanerProvider.h"
+
 
 //------------------------------------------------------------- Constantes
 
