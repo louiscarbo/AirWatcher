@@ -11,7 +11,10 @@
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-#include "../Model/Sensor.h"
+
+#include <vector>
+
+
 using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 
 //------------------------------------------------------------------------
@@ -48,6 +51,9 @@ public:
     //  les coordonnées spécifiées, avec un rayon donné.
     //  Le timestamp spécifie le moment pour lequel l'indice doit être calculé.
 
+    explicit UseCasesManager(const string& dataPath);
+    void loadData();
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -71,6 +77,16 @@ protected:
 //----------------------------------------------------- Attributs protégés
     bool trackPerformance;
     vector<Sensor> sensors;
+
+    string              dataPath;
+    CSVParser                parser;
+
+   vector<Attribute>          attributes;
+   vector<Sensor>             sensors;
+   vector<Measurement>        measurements;
+   vector<Cleaner>            cleaners;
+   vector<PrivateIndividual>  users;
+   vector<AirCleanerProvider> providers;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Xxx>

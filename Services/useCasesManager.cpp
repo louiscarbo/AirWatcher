@@ -18,6 +18,8 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "UseCasesManager.h"
+#include "Data/CSVParser.h"
+
 
 //------------------------------------------------------------- Constantes
 
@@ -203,6 +205,26 @@ int UseCasesManager::ComputeAtmoIndexInArea(Coordinates centerCoords,float R, Ti
 }
 
 
+void UseCasesManager::loadData() {
+
+    attributes   = parser.loadAttributes();
+    cout << "Chargé " << attributes.size() << " attribut(s)\n";
+
+    sensors      = parser.loadSensors();
+    cout << "Chargé " << sensors.size() << " capteur(s)\n";
+
+    measurements = parser.loadMeasurements();
+    cout << "Chargé " << measurements.size() << " mesure(s)\n";
+
+    cleaners     = parser.loadCleaners();
+    cout << "Chargé " << cleaners.size() << " cleaner(s)\n";
+
+    users        = parser.loadPrivateIndividuals();
+    cout << "Chargé " << users.size() << " utilisateur(s)\n";
+
+    providers    = parser.loadAirCleanerProviders();
+    cout << "Chargé " << providers.size() << " provider(s)\n";
+}
 
 //------------------------------------------------- Surcharge d'opérateurs
 
