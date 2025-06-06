@@ -23,22 +23,22 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-const std::string& AirCleanerProvider::GetProviderID() const {
+const string& AirCleanerProvider::GetProviderID() const {
     return providerID;
 }
 
-void AirCleanerProvider::GetCleaners() const {
-    return cleanersID;
-}
-
-void AirCleanerProvider::AddCleanerID(const Cleaner& cleanerID) {
+void AirCleanerProvider::AddCleanerID(const string& cleanerID) {
     cleanersID.push_back(cleanerID);
 }
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
-AirCleanerProvider::AirCleanerProvider(const std::string& providerID) : providerID(providerID)
-{ }
+AirCleanerProvider::AirCleanerProvider(const string& providerID) : providerID(providerID)
+{
+    #ifdef MAP
+    cout << "Appel constructeur <AirCleanerProvider>" << endl;
+    #endif
+ }
 
 AirCleanerProvider::~AirCleanerProvider() = default;
 //------------------------------------------------------------------ PRIVE

@@ -44,6 +44,8 @@ class CSVParser
 public:
 //----------------------------------------------------- Méthodes publiques
     
+    vector<string> splitLine (const string & ligne, char delimiter=';');
+
     vector<Attribute> loadAttributes();
     // Charge et retourne la liste de tous les attributs  (attributes.csv)
     
@@ -59,7 +61,7 @@ public:
     vector<PrivateIndividual> loadPrivateIndividuals();
     // Charge et retourne la liste de tous les utilisateurs privés (users.csv)
 
-    vector<PrivateIndividual> loadProviders();
+    vector<AirCleanerProvider> loadAirCleanerProviders();
     // Charge et retourne la liste de tous les utilisateurs privés (providers.csv)
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -75,7 +77,6 @@ public:
 private:
 //----------------------------------------------------- Méthodes protégées
 
-    vector<string> splitLine (const string & ligne, char delimiter=';');
 //----------------------------------------------------- Attributs protégés
     string path;
 };

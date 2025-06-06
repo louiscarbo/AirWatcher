@@ -48,13 +48,13 @@ vector<Attribute> CSVParser::loadAttributes (){
     }
 
     string line;
-    getline(file,line);
+    getline(file,line); //pour éliminer la première ligne du tableau avec les titres des colonnes 
 
     while (getline(file,line)){
         if (line.empty()) continue;
         auto cols = splitLine(line);
 
-        if (cols.size() <3) continue;
+        if (cols.size() <3) continue; //car 3 colonnes 
         attributs.emplace_back( cols[0],cols[1],cols[2]);
     }
     return attributs; 
@@ -69,13 +69,13 @@ vector<Sensor> CSVParser::loadSensors (){
         return sensors;   
     }
 
-    string line;
+    string line; //pas de header à ignorer cette fois
 
     while (getline(file,line)){
         if (line.empty()) continue;
         auto cols = splitLine(line);
 
-        if (cols.size() <3) continue; //3 car 
+        if (cols.size() <3) continue; //3 colonnes encore 
         Sensor s(
                 cols[0],
                 Coordinates {
@@ -106,7 +106,7 @@ vector<Measurement> CSVParser::loadMeasurements (){
         if (cols.size() <4) continue; //4 car 4 colonnes
 
         mesures.emplace_back(
-            parseTimestamp(cols[0]),
+            parseTimestamp(cols[0]),  //                          !!!!!! A REVOIR !!!!!! 
             stof(cols[3]),
             cols[1],
             Attribute{cols[2],"",""}
@@ -136,8 +136,10 @@ vector<Cleaner> CSVParser::loadCleaners (){
             cols[0],
             parseTimestamp(cols[3]),
             parseTimestamp(cols[4]),
+            Coordinates {
                 stod(cols[1]),
                 stod(cols[2])
+            }
         );
         cleaners.push_back(move(c));
     }
@@ -156,6 +158,7 @@ vector<PrivateIndividual> CSVParser::loadPrivateIndividuals() {
     while (getline(file, line)) {
         if (line.empty()) continue;
         auto cols = splitLine(line);
+
         // on s'attend à : userName;sensorID
         if (cols.size() < 2) continue;
 
@@ -167,7 +170,7 @@ vector<PrivateIndividual> CSVParser::loadPrivateIndividuals() {
         if (it == mapUsers.end()) {
             auto [ins, pairIt] = mapUsers.emplace(
                 userName,
-                PrivateIndividual(userName, true, 0)
+                PrivateIndividual(userName, true, 0)  //par défaut il est reliable 
             );
             it = ins;
         }
@@ -182,6 +185,48 @@ vector<PrivateIndividual> CSVParser::loadPrivateIndividuals() {
         users.push_back(std::move(kv.second));
     }
     return users;
+}
+
+vector<AirCleanerProvider> CSVParser::loadAirCleanerProviders(){
+    std::ifstream file(path + "/providers.csv");
+    if (!file) {
+        std::cerr << "Erreur d'ouverture fichier providers.csv\n";
+        return {};
+    }
+
+    // map temporaire : providerID → AirCleanerProvider
+    unordered_map<string, AirCleanerProvider> mapProv;
+    string line;
+
+    while (getline(file, line)) {
+        if (line.empty()) continue;
+        auto cols = splitLine(line);
+        
+        if (cols.size() < 2) continue;
+
+        const string& providerID = cols[0];
+        const string& cleanerID  = cols[1];
+
+        // Si le provider n’existe pas encore, on le crée
+        auto it = mapProv.find(providerID);
+        if (it == mapProv.end()) {
+            auto ins = mapProv.emplace(
+                providerID,
+                AirCleanerProvider(providerID)
+            );
+            it = ins.first;
+        }
+        // On ajoute l’ID du cleaner à ce provider
+        it->second.AddCleanerID(cleanerID);
+    }
+
+    // Conversion en vector<AirCleanerProvider>
+    vector<AirCleanerProvider> providers;
+    providers.reserve(mapProv.size());
+    for (auto& kv : mapProv) {
+        providers.push_back(std::move(kv.second));
+    }
+    return providers;
 }
 
 //------------------------------------------------- Surcharge d'opérateurs

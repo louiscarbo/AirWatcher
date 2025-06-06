@@ -6,7 +6,7 @@
     e-mail               : 
 *************************************************************************/
 
-//---------- Interface de la classe <useCasesManager> (fichier useCasesManager.h) ----------------
+//---------- Interface de la classe <useCasesManager> (fichier AirCleanerProvider.h) ----------------
 #if ! defined ( AIRCLEANERPROVIDER_H )
 #define AIRCLEANERPROVIDER_H
 
@@ -33,9 +33,8 @@ class AirCleanerProvider
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    const std::string& GetProviderID() const;
-    const std::vector<Cleaner>& GetCleaners() const;
-    void AddCleaner(const Cleaner& cleaner);
+    const string& GetProviderID() const;
+    void AddCleanerID(const string& cleaner);
 
 //-------------------------------------------- Constructeurs - destructeur
     explicit AirCleanerProvider(const std::string& providerID);
@@ -44,8 +43,8 @@ public:
 private:
 //----------------------------------------------------- Méthodes protégées
 //----------------------------------------------------- Attributs protégés
-    std::string providerID;
-    std::vector<string>  cleanersID; //stocker que les ID
+    string providerID;
+    vector<string>  cleanersID; //stocker que les ID
 };
 
 //-------------------------------- Autres définitions dépendantes de <Xxx>
