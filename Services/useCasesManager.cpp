@@ -17,8 +17,8 @@ using namespace std;
 #include <chrono>
 
 //------------------------------------------------------ Include personnel
-#include "UseCasesManager.h"
-#include "Data/CSVParser.h"
+#include "../Services/useCasesManager.h"
+#include "../Data/CSVParser.h"
 
 
 //------------------------------------------------------------- Constantes
@@ -230,7 +230,7 @@ void UseCasesManager::loadData() {
 
 //-------------------------------------------- Constructeurs - destructeur
 
-UseCasesManager::UseCasesManager ( )
+UseCasesManager::UseCasesManager()
 // Algorithme :
 //
 {
@@ -240,7 +240,7 @@ UseCasesManager::UseCasesManager ( )
 } //----- Fin de UseCasesManager
 
 
-UseCasesManager::~UseCasesManager ( )
+UseCasesManager::~UseCasesManager()
 // Algorithme :
 //
 {
