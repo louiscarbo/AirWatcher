@@ -2,7 +2,7 @@
 # CONFIGURATION
 # --------------------------
 CXX      = g++
-CXXFLAGS = -std=c++14 -Wall -Wextra -I.
+CXXFLAGS = -std=c++17 -Wall -Wextra -I.
 
 SRC_DIRS = Data Model Services Presentation
 BUILD_DIR = bin
@@ -42,5 +42,8 @@ $(BUILD_DIR):
 
 clean:
 	rm -f $(BUILD_DIR)/*.o $(TARGET)
+
+reset: clean
+	rm -rf $(BUILD_DIR)
 
 .PHONY: all clean
