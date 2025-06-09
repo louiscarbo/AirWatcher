@@ -238,6 +238,12 @@ CSVParser::CSVParser ( const std::string & unpath ): path(unpath){
     #endif
 }
 
+CSVParser::CSVParser ( ){
+    #ifdef MAP
+    cout << "Appel constructeur par défaut <CSVParser>" << endl;
+    #endif
+    path = ""; // Initialiser le chemin à vide
+}
 
 
 CSVParser::~CSVParser ( )

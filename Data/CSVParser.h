@@ -67,6 +67,7 @@ public:
 
 
     explicit CSVParser ( const string & unpath );
+    
     CSVParser ( );
 
     virtual ~CSVParser ( );
