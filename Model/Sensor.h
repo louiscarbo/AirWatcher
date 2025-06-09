@@ -79,7 +79,7 @@ public:
     // Contrat :
     //
 
-    Sensor(std::__1::string sensorId, Coordinates coordinates);
+    Sensor(string sensorId, Coordinates coordinates);
 
     Sensor(string sensor_ID, float latitudeInit, float longitudeInit, PrivateIndividual * privateIndiv = nullptr);
 

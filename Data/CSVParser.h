@@ -18,7 +18,6 @@ using namespace std;
 
 
 //--------------------------------------------------- Interfaces utilisées
-#include "../Services/UseCasesManager.h"
 #include "../Model/Sensor.h"
 #include "../Model/Measurement.h"
 #include "../Model/Cleaner.h"

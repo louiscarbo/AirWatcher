@@ -82,7 +82,7 @@ Sensor::Sensor(){
     initDictUnit(); 
 }
 
-Sensor::Sensor(std::__1::string sensorId, Coordinates coordinates)
+Sensor::Sensor(string sensorId, Coordinates coordinates)
 {
     #ifdef MAP
         cout << "Appel au constructeur de <Sensor>" << endl;

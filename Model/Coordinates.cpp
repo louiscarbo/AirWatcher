@@ -11,6 +11,8 @@
 //------------------------------------------------------ Include personnel
 #include "Coordinates.h"
 #include <string>
+#include <stdexcept>
+#include <cmath>
 
 //------------------------------------------------------------- Constantes
 

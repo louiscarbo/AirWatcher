@@ -178,7 +178,7 @@ int UseCasesManager::ComputeAtmoIndexInArea(Coordinates centerCoords,float R, Ti
 
     if (sensors.empty()){
         printf("No data available\n");
-        return NULL;
+        return -1; // No sensors found in the specified area
     }
     // Accumulate weighted ATMO values
     float weightedSum = 0.0;
@@ -198,7 +198,7 @@ int UseCasesManager::ComputeAtmoIndexInArea(Coordinates centerCoords,float R, Ti
     // Return weighted average
     if(totalWeight==0){
         printf("No data at timestamp\n");
-        return NULL;
+        return -1; // No valid measurements found at the specified timestamp
     }else{
         return weightedSum/totalWeight;
     }

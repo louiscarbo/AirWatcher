@@ -49,6 +49,16 @@ Cleaner::Cleaner() {
     this->coordinates = new Coordinates();
 }
 
+Cleaner::Cleaner(string cleanerID, Timestamp timestamp_start, Timestamp timestamp_stop, Coordinates coordinates) {
+    #ifdef MAP
+        cout << "Appel au constructeur de <Cleaner>" << endl;
+    #endif
+    this->cleanerID = cleanerID;
+    this->timestamp_start = timestamp_start;
+    this->timestamp_stop = timestamp_stop;
+    this->coordinates = new Coordinates(coordinates);
+}
+
 Cleaner::Cleaner(string cleanerID, Timestamp timestamp_start, Timestamp timestamp_stop, double uneLatitude, double uneLongitude) {
     #ifdef MAP
         cout << "Appel au constructeur de <Cleaner>" << endl;

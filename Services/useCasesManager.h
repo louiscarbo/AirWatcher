@@ -13,6 +13,17 @@
 //------------------------------------------------------------------ Types
 
 #include <vector>
+#include <string>
+#include <chrono>
+#include "../Model/Sensor.h"
+#include "../Model/Measurement.h"
+#include "../Model/Attribute.h"
+#include "../Model/Coordinates.h"
+#include "../Model/PrivateIndividual.h"
+#include "../Model/AirCleanerProvider.h"
+#include "../Model/Cleaner.h"
+#include "../Data/CSVParser.h"
+using namespace std;
 
 
 using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
@@ -76,17 +87,14 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
     bool trackPerformance;
-    vector<Sensor> sensors;
-
     string              dataPath;
     CSVParser                parser;
-
-   vector<Attribute>          attributes;
-   vector<Sensor>             sensors;
-   vector<Measurement>        measurements;
-   vector<Cleaner>            cleaners;
-   vector<PrivateIndividual>  users;
-   vector<AirCleanerProvider> providers;
+    vector<Attribute>          attributes;
+    vector<Sensor>             sensors;
+    vector<Measurement>        measurements;
+    vector<Cleaner>            cleaners;
+    vector<PrivateIndividual>  users;
+    vector<AirCleanerProvider> providers;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Xxx>
