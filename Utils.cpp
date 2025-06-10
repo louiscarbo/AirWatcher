@@ -1,3 +1,6 @@
+#if ! defined ( Utils )
+#define Utils
+
 using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 #include <string>
 using namespace std;
@@ -28,3 +31,5 @@ static Timestamp parseTimestamp(const std::string &input)
     std::time_t tt = std::mktime(&tm);
     return std::chrono::system_clock::from_time_t(tt);
 }
+
+#endif // Utils
