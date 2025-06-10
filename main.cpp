@@ -1,5 +1,6 @@
 #include "Services/UseCasesManager.h"
 #include "Presentation/Menu.h"
+#include "Tests/Tests.cpp"
 #include <string>
 #include <iostream>
 using namespace std;
@@ -7,6 +8,8 @@ using namespace std;
 int main() {
 
     cout << "Entering the application. Hello !" << endl;
+    // Exécuter les tests
+    runTests();
     
     // Initialiser les données et les cas d'utilisation
     UseCasesManager manager;
