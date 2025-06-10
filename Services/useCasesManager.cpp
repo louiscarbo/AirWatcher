@@ -230,6 +230,18 @@ void UseCasesManager::loadData() {
 
 //-------------------------------------------- Constructeurs - destructeur
 
+UseCasesManager::UseCasesManager(const string& dataPath)
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au constructeur de <UseCasesManager>" << endl;
+#endif
+    this->dataPath = dataPath;
+    this->parser = CSVParser(dataPath);
+    this->trackPerformance = false; // Default value, can be set later if needed
+}
+
 UseCasesManager::UseCasesManager()
 // Algorithme :
 //
@@ -237,6 +249,9 @@ UseCasesManager::UseCasesManager()
 #ifdef MAP
     cout << "Appel au constructeur de <UseCasesManager>" << endl;
 #endif
+    this->dataPath = ""; // Default path, can be changed later
+    this->parser = CSVParser(this->dataPath);
+    this->trackPerformance = false; // Default value, can be set later if needed
 } //----- Fin de UseCasesManager
 
 

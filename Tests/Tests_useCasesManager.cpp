@@ -1,0 +1,112 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <chrono>
+
+using namespace std;
+
+#include "../Model/Sensor.h"
+#include "../Model/Measurement.h"
+#include "../Model/Attribute.h"
+#include "../Model/Coordinates.h"
+#include "../Model/PrivateIndividual.h"
+#include "../Model/AirCleanerProvider.h"
+#include "../Model/Cleaner.h"
+#include "../Data/CSVParser.h"
+#include "../Services/useCasesManager.h"
+#include "../Utils.cpp"
+
+int testuseCasesManager()
+{
+    cout << "Running useCasesManager tests..." << endl;
+    int resultat = 0;
+    resultat += test1();
+    resultat += test2();
+    resultat += test3();
+    resultat += test4();
+    
+    if (resultat == 0) {
+        cout << "All tests passed successfully!" << endl;
+    } else {
+        cout << resultat << " test(s) failed." << endl;
+    }
+
+    return resultat;
+}
+
+int test1()
+{
+    UseCasesManager * useCasesManager = new UseCasesManager();
+    useCasesManager->loadData();
+    delete useCasesManager;
+
+    return 0; // Can't test more because there is no getters to test the loaded data
+}
+
+int test2()
+{
+    UseCasesManager useCasesManager("Data/");
+    useCasesManager.loadData();
+
+    Coordinates centerCoords(44.0, -1.0);
+    float R = 5.0; // 5 km radius
+    Timestamp timestamp = parseTimestamp("2019-01-01 12:00:00");
+
+    int atmoIndex = useCasesManager.ComputeAtmoIndexInArea(centerCoords, R, timestamp);
+    
+    if (atmoIndex < 0) {
+        cout << "Test2 failed: ComputeAtmoIndexInArea returned an error." << endl;
+        return 1;
+    }
+
+    return 0;
+}
+
+int test3()
+{
+    UseCasesManager useCasesManager("Data/");
+    useCasesManager.loadData();
+
+    Coordinates centerCoords(44.0, -1.0);
+    float R = 0.1; // 5 km radius
+
+    vector<Sensor> sensors = useCasesManager.findSensorsWithinRadius(centerCoords, R);
+    
+    if (sensors.empty()) {
+        cout << "Test3 failed: No sensors found within the specified radius." << endl;
+        return 1;
+    } else if (sensors.at(0).getSensorID() != "Sensor0" || 
+               sensors.at(0).getCoordinates() == nullptr || 
+               sensors.at(0).getCoordinates()->getLatitude() != 44.0 || 
+               sensors.at(0).getCoordinates()->getLongitude() != -1.0) {
+        cout << "Test3 failed: First sensor does not match expected values." << endl;
+        cout << "Expected: Sensor0, Coordinates(44.0, -1.0)" << endl;
+        cout << "Got: " << sensors.at(0).getSensorID() << ", Coordinates(" 
+             << sensors.at(0).getCoordinates()->getLatitude() << ", " 
+             << sensors.at(0).getCoordinates()->getLongitude() << ")" << endl;
+        return 1;
+    }
+
+    return 0;
+}
+
+int test4()
+{
+    UseCasesManager useCasesManager("Data/");
+    useCasesManager.loadData();
+
+    vector<pair<Sensor, double>> suspiciousSensors = useCasesManager.identifySuspiciousSensors();
+    
+    if (!suspiciousSensors.empty()) {
+        cout << "Test4 failed: Suspicious sensors were found when there should be none." << endl;
+        cout << "Suspicious Sensors:" << endl;
+        for (const auto& pair : suspiciousSensors) {
+            cout << "Sensor ID: " << pair.first.getSensorID() 
+                 << ", Suspicion Score: " << pair.second << endl;
+        }
+        return 1;
+    }
+
+    return 0;
+}
+    

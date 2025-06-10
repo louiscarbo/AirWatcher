@@ -62,12 +62,14 @@ public:
     //  les coordonnées spécifiées, avec un rayon donné.
     //  Le timestamp spécifie le moment pour lequel l'indice doit être calculé.
 
-    explicit UseCasesManager(const string& dataPath);
+    
     void loadData();
 
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
+    explicit UseCasesManager(const string& dataPath);
+    
     UseCasesManager ( );
     // Mode d'emploi :
     //
