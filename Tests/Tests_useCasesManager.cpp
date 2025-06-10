@@ -16,25 +16,9 @@ using namespace std;
 #include "../Services/useCasesManager.h"
 #include "../Utils.cpp"
 
-int testuseCasesManager()
-{
-    cout << "Running useCasesManager tests..." << endl;
-    int resultat = 0;
-    resultat += test1();
-    resultat += test2();
-    resultat += test3();
-    resultat += test4();
-    
-    if (resultat == 0) {
-        cout << "All tests passed successfully!" << endl;
-    } else {
-        cout << resultat << " test(s) failed." << endl;
-    }
 
-    return resultat;
-}
 
-int test1()
+int test1_useCasesManager()
 {
     UseCasesManager * useCasesManager = new UseCasesManager();
     useCasesManager->loadData();
@@ -43,7 +27,7 @@ int test1()
     return 0; // Can't test more because there is no getters to test the loaded data
 }
 
-int test2()
+int test2_useCasesManager()
 {
     UseCasesManager useCasesManager("Data/");
     useCasesManager.loadData();
@@ -62,7 +46,7 @@ int test2()
     return 0;
 }
 
-int test3()
+int test3_useCasesManager()
 {
     UseCasesManager useCasesManager("Data/");
     useCasesManager.loadData();
@@ -90,7 +74,7 @@ int test3()
     return 0;
 }
 
-int test4()
+int test4_useCasesManager()
 {
     UseCasesManager useCasesManager("Data/");
     useCasesManager.loadData();
@@ -110,3 +94,20 @@ int test4()
     return 0;
 }
     
+int testuseCasesManager()
+{
+    cout << "Running useCasesManager tests..." << endl;
+    int resultat = 0;
+    resultat += test1_useCasesManager();
+    resultat += test2_useCasesManager();
+    resultat += test3_useCasesManager();
+    resultat += test4_useCasesManager();
+    
+    if (resultat == 0) {
+        cout << "All tests passed successfully!" << endl;
+    } else {
+        cout << resultat << " test(s) failed." << endl;
+    }
+
+    return resultat;
+}

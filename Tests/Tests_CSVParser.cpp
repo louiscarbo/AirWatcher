@@ -14,27 +14,9 @@ using namespace std;
 #include "../Model/AirCleanerProvider.h"
 #include "../Utils.cpp"
 
-int testCSVParser()
-{
-    cout << "Running CSVParser tests..." << endl;
-    int resultat = 0;
-    resultat += test1();
-    resultat += test2();
-    resultat += test3();
-    //resultat += test4(); // Commenté car loadMeasurements() n'est pas fini
-    resultat += test5();
-    resultat += test6();
-    resultat += test7();
-    if (resultat == 0) {
-        cout << "All tests passed successfully!" << endl;
-    } else {
-        cout << resultat << " test(s) failed." << endl;
-    }
 
-    return resultat;
-}
 
-int test1()
+int test1_CSVParser()
 {
     CSVParser * parser = new CSVParser();
     
@@ -46,7 +28,7 @@ int test1()
         delete parser;
         return 1;
     }
-    vector<string> elements = parser->splitLine( "sensor1;O3;2023-10-01 12:00:00;25.5");
+    elements = parser->splitLine( "sensor1;O3;2023-10-01 12:00:00;25.5");
     if (elements.at(0) != "sensor1" || elements.at(1) != "O3" || elements.at(2) != "2023-10-01 12:00:00" || elements.at(3) != "25.5") {
         cout << "Test 1 failed: splitLine did not return expected values." << endl;
         cout << "Expected: sensor1;O3;2023-10-01 12:00:00;25.5" << endl;
@@ -58,7 +40,7 @@ int test1()
     return 0;
 }
 
-int test2()
+int test2_CSVParser()
 {
     CSVParser parser("Data/");
 
@@ -95,7 +77,7 @@ int test2()
     return 0;
 }
 
-int test3()
+int test3_CSVParser()
 {
     CSVParser parser("Data/");
 
@@ -119,7 +101,7 @@ int test3()
 }
 
 /*
-int test4()
+int test4_CSVParser()
 {
     CSVParser parser("Data/");
 
@@ -144,7 +126,7 @@ int test4()
 }
 */
 
-int test5(){
+int test5_CSVParser(){
     CSVParser parser("Data/");
 
     vector<Cleaner> cleaners = parser.loadCleaners();
@@ -169,7 +151,7 @@ int test5(){
     return 0;
 }
 
-int test6()
+int test6_CSVParser()
 {
     CSVParser parser("Data/");
 
@@ -193,7 +175,7 @@ int test6()
     return 0;
 }
 
-int test7()
+int test7_CSVParser()
 {
     CSVParser parser("Data/");
 
@@ -213,4 +195,24 @@ int test7()
     }
 
     return 0;
+}
+
+int testCSVParser()
+{
+    cout << "Running CSVParser tests..." << endl;
+    int resultat = 0;
+    resultat += test1_CSVParser();
+    resultat += test2_CSVParser();
+    resultat += test3_CSVParser();
+    //resultat += test4(); // Commenté car loadMeasurements() n'est pas fini
+    resultat += test5_CSVParser();
+    resultat += test6_CSVParser();
+    resultat += test7_CSVParser();
+    if (resultat == 0) {
+        cout << "All tests passed successfully!" << endl;
+    } else {
+        cout << resultat << " test(s) failed." << endl;
+    }
+
+    return resultat;
 }
