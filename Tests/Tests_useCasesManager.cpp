@@ -104,9 +104,9 @@ int testuseCasesManager()
     resultat += test4_useCasesManager();
     
     if (resultat == 0) {
-        cout << "All tests passed successfully!" << endl;
+        cout << "All tests passed successfully!" << endl << endl;
     } else {
-        cout << resultat << " test(s) failed." << endl;
+        cout << resultat << " test(s) failed." << endl << endl;
     }
 
     return resultat;

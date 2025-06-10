@@ -83,7 +83,7 @@ int test3_CSVParser()
 
     vector<Sensor> sensors = parser.loadSensors();
     if (sensors.empty()) {
-        cout << "No sensors loaded." << endl;
+        cout << "Test3 failed: No sensors loaded." << endl;
         return 1;
     } else if ( sensors.at(0).getSensorID() != "Sensor0" ||
                 sensors.at(0).getCoordinates() == nullptr || 
@@ -107,7 +107,7 @@ int test4_CSVParser()
 
     vector<Measurement> measurements = parser.loadMeasurements();
     if (measurements.empty()) {
-        cout << "No measurements loaded." << endl;
+        cout << "Test4 failed: No measurements loaded." << endl;
         return 1;
     } else if (measurements.at(0).getSensorID() != "Sensor0" ||
                measurements.at(0).getAttribute().getAttributeID() != "O3" ||
@@ -131,7 +131,7 @@ int test5_CSVParser(){
 
     vector<Cleaner> cleaners = parser.loadCleaners();
     if (cleaners.empty()) {
-        cout << "No cleaners loaded." << endl;
+        cout << "Test5 failed: No cleaners loaded." << endl;
         return 1;
     } else if (// cleaners.at(0).getCleanerID() != "Cleaner0" ||
                cleaners.at(0).getCoordinates()->getLatitude() != 45.333333 ||
@@ -157,7 +157,7 @@ int test6_CSVParser()
 
     vector<PrivateIndividual> individuals = parser.loadPrivateIndividuals();
     if (individuals.empty()) {
-        cout << "No private individuals loaded." << endl;
+        cout << "Test6 failed: No private individuals loaded." << endl;
         return 1;
     } else if (//individuals.at(0).getUserName() != "User0" ||
                //individuals.at(0).getSensorsIDs().empty() ||
@@ -181,7 +181,7 @@ int test7_CSVParser()
 
     vector<AirCleanerProvider> providers = parser.loadAirCleanerProviders();
     if (providers.empty()) {
-        cout << "No air cleaner providers loaded." << endl;
+        cout << "Test7 failed: No air cleaner providers loaded." << endl;
         return 1;
     } else if (providers.at(0).GetProviderID() != "Provider0" // ||
                //providers.at(0).getCleanersID().empty() ||
@@ -209,9 +209,9 @@ int testCSVParser()
     resultat += test6_CSVParser();
     resultat += test7_CSVParser();
     if (resultat == 0) {
-        cout << "All tests passed successfully!" << endl;
+        cout << "All tests passed successfully!" << endl << endl;
     } else {
-        cout << resultat << " test(s) failed." << endl;
+        cout << resultat << " test(s) failed." << endl << endl;
     }
 
     return resultat;
