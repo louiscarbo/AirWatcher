@@ -13,7 +13,7 @@ using namespace std;
 #include "../Model/AirCleanerProvider.h"
 #include "../Model/Cleaner.h"
 #include "../Data/CSVParser.h"
-#include "../Services/useCasesManager.h"
+#include "../Services/UseCasesManager.h"
 #include "../Utils.cpp"
 
 
@@ -110,4 +110,9 @@ int testuseCasesManager()
     }
 
     return resultat;
+}
+
+int main(){
+    testuseCasesManager();
+    return 0;
 }
