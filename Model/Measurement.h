@@ -29,6 +29,11 @@ class Measurement {
     //----------------------------------------------------------------- PUBLIC
     public:
         //----------------------------------------------------- Méthodes publiques
+        string getSensorID() const;
+        // Mode d'emploi :
+        // Retourne l'identifiant du capteur associé à la mesure.
+        // Contrat :
+
         float getValue() const;
         // Mode d'emploi :
         // Retourne la valeur de la mesure.

@@ -68,6 +68,16 @@ string Sensor::getSensorID() const
     return sensorID;
 }
 
+list<Measurement> Sensor::getMeasurements() const
+{
+    return measurements;
+}
+
+PrivateIndividual * Sensor::getPrivateIndividual() const
+{
+    return privateIndividual;
+}
+
 vector<Timestamp> Sensor::getMeasurementTimestamps() const
 { //!!!!!!!!!!!!!!!!!!!!! set et non list
     set<Timestamp> liste_timestamps;

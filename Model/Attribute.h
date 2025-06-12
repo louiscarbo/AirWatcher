@@ -28,6 +28,16 @@ class Attribute {
         // Retourne l'unité de l'attribut.
         // Contrat :
         //
+        string getAttributeID() const;
+        // Mode d'emploi :
+        // Retourne l'identifiant de l'attribut.
+        // Contrat :
+
+        string getDescription() const;
+        // Mode d'emploi :
+        // Retourne la description de l'attribut.
+        // Contrat :
+        
 
         //------------------------------------------------- Surcharge d'opérateurs
 

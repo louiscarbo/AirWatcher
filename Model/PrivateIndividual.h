@@ -37,6 +37,15 @@ public:
 
     int getPoints() const;
 
+    int getIdUser() const;
+
+    std::string getUserName() const;
+
+    bool getIsReliable() const;
+
+    std::vector<std::string> getSensorsIDs() const;
+
+
     void AddSensor(const string& sensorId);
 //-------------------------------------------- Constructeurs - destructeur
 

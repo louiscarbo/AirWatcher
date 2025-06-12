@@ -23,6 +23,10 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+string Measurement::getSensorID() const {
+    return sensorID;
+}
+
 float Measurement::getValue() const{
     return value;
 }

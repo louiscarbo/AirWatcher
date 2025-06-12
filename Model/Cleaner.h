@@ -30,6 +30,10 @@ class Cleaner
 
 public:
 //----------------------------------------------------- Méthodes publiques
+    string getCleanerID() const;
+    // Mode d'emploi :
+    // Retourne l'identifiant du Cleaner.
+    // Contrat :
 
     Timestamp getTimestamp_start() const;
     // Mode d'emploi :

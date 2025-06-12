@@ -142,6 +142,7 @@ int test5_CSVParser(){
         return 1;
     }else if (cleaners.at(0).getCoordinates() == nullptr) {
             cout << "Test5 failed: Coordinates is nullptr." << endl;
+            delete parser;
             return 1;
         
     } else if (// cleaners.at(0).getCleanerID() != "Cleaner0" ||
