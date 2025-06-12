@@ -77,6 +77,39 @@ void Sensor::addMeasurement(Measurement measurement){
     measurements.push_back(measurement);
 }
 
+//////////////////////////// Surchage operator : 
+bool Sensor::operator<(const Sensor& other) const {
+    return sensorID < other.sensorID;
+}
+
+// Constructeur de copie
+Sensor::Sensor(const Sensor & other)
+{
+    sensorID = other.sensorID;
+    coordinates = new Coordinates(*other.coordinates); // deep copy
+    privateIndividual = other.privateIndividual;
+    measurements = other.measurements;
+    dictUnitAtmoMaxValue = other.dictUnitAtmoMaxValue;
+}
+
+
+// Opérateur d'affectation
+Sensor& Sensor::operator=(const Sensor& other)
+{
+    if (this != &other)
+    {
+        delete coordinates;
+        coordinates = new Coordinates(*other.coordinates); // deep copy
+        sensorID = other.sensorID;
+        privateIndividual = other.privateIndividual;
+        measurements = other.measurements;
+        dictUnitAtmoMaxValue = other.dictUnitAtmoMaxValue;
+    }
+    return *this;
+}
+
+
+
 
 Sensor::Sensor(){
     initDictUnit(); 

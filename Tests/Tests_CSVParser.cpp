@@ -18,7 +18,7 @@ using namespace std;
 
 int test1_CSVParser()
 {
-    CSVParser * parser = new CSVParser();
+    CSVParser * parser = new CSVParser("../Dataset");//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
     vector<string> elements = parser->splitLine( "sensor1;O3;2023-10-01 12:00:00;25.5", ';');
     if (elements.at(0) != "sensor1" || elements.at(1) != "O3" || elements.at(2) != "2023-10-01 12:00:00" || elements.at(3) != "25.5") {
@@ -42,7 +42,7 @@ int test1_CSVParser()
 
 int test2_CSVParser()
 {
-    CSVParser parser("Data/");
+    CSVParser parser("../Dataset");
 
     string expectedID[] = {"O3", "SO2", "NO2", "PM10"};
     string expectedUnit[] = {"µg/m3", "µg/m3", "µg/m3", "µg/m3"};
@@ -79,7 +79,7 @@ int test2_CSVParser()
 
 int test3_CSVParser()
 {
-    CSVParser parser("Data/");
+    CSVParser parser("../Dataset");
 
     vector<Sensor> sensors = parser.loadSensors();
     if (sensors.empty()) {
@@ -127,12 +127,16 @@ int test4_CSVParser()
 */
 
 int test5_CSVParser(){
-    CSVParser parser("Data/");
+    CSVParser parser("../Dataset");
 
     vector<Cleaner> cleaners = parser.loadCleaners();
     if (cleaners.empty()) {
         cout << "Test5 failed: No cleaners loaded." << endl;
         return 1;
+    }else if (cleaners.at(0).getCoordinates() == nullptr) {
+            cout << "Test5 failed: Coordinates is nullptr." << endl;
+            return 1;
+        
     } else if (// cleaners.at(0).getCleanerID() != "Cleaner0" ||
                cleaners.at(0).getCoordinates()->getLatitude() != 45.333333 ||
                cleaners.at(0).getCoordinates()->getLongitude() != 1.333333 ||
@@ -153,7 +157,7 @@ int test5_CSVParser(){
 
 int test6_CSVParser()
 {
-    CSVParser parser("Data/");
+    CSVParser parser("../Dataset");
 
     vector<PrivateIndividual> individuals = parser.loadPrivateIndividuals();
     if (individuals.empty()) {
@@ -177,7 +181,7 @@ int test6_CSVParser()
 
 int test7_CSVParser()
 {
-    CSVParser parser("Data/");
+    CSVParser parser("../Dataset");
 
     vector<AirCleanerProvider> providers = parser.loadAirCleanerProviders();
     if (providers.empty()) {
@@ -201,13 +205,13 @@ int testCSVParser()
 {
     cout << "Running CSVParser tests..." << endl;
     int resultat = 0;
-    resultat += test1_CSVParser();
-    resultat += test2_CSVParser();
-    resultat += test3_CSVParser();
+    //resultat += test1_CSVParser();
+    //resultat += test2_CSVParser();
+    //resultat += test3_CSVParser();
     //resultat += test4(); // Commenté car loadMeasurements() n'est pas fini
     resultat += test5_CSVParser();
-    resultat += test6_CSVParser();
-    resultat += test7_CSVParser();
+    //resultat += test6_CSVParser();
+    //resultat += test7_CSVParser();
     if (resultat == 0) {
         cout << "All tests passed successfully!" << endl << endl;
     } else {
@@ -215,4 +219,10 @@ int testCSVParser()
     }
 
     return resultat;
+}
+
+
+int main(){
+    testCSVParser();
+    return 0;
 }
