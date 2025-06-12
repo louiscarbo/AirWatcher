@@ -63,8 +63,8 @@ public:
     //  Le timestamp spécifie le moment pour lequel l'indice doit être calculé.
 
     
-    void loadData();
-
+    void loadData(bool verbose = false);
+    
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur

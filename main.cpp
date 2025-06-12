@@ -7,11 +7,9 @@ using namespace std;
 
 int main() {
 
-    cout << "Entering the application. Hello !" << endl;
-
     // Initialiser les données et les cas d'utilisation
     UseCasesManager manager;
-    manager.loadData(); // Ou une méthode similaire ?
+    manager.loadData(true); // Ou une méthode similaire ?
 
     // Exécuter les tests
     runTests();

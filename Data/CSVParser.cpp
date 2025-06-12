@@ -69,13 +69,13 @@ vector<Sensor> CSVParser::loadSensors (){
         return sensors;   
     }
 
-    string line; //pas de header à ignorer cette fois
+    string line;
 
     while (getline(file,line)){
         if (line.empty()) continue;
         auto cols = splitLine(line);
 
-        if (cols.size() <3) continue; //3 colonnes encore 
+        if (cols.size() <3) continue;
         Sensor s(
                 cols[0],
                 Coordinates {
@@ -136,10 +136,8 @@ vector<Cleaner> CSVParser::loadCleaners (){
             cols[0],
             parseTimestamp(cols[3]),
             parseTimestamp(cols[4]),
-            Coordinates {
-                stod(cols[1]),
-                stod(cols[2])
-            }
+            stod(cols[1]),
+            stod(cols[2])
         );
         cleaners.push_back(move(c));
     }

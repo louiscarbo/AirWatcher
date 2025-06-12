@@ -18,8 +18,8 @@ using namespace std;
 
 int test1_CSVParser()
 {
-    CSVParser * parser = new CSVParser("../Dataset");//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    
+    CSVParser * parser = new CSVParser("Dataset/");
+
     vector<string> elements = parser->splitLine( "sensor1;O3;2023-10-01 12:00:00;25.5", ';');
     if (elements.at(0) != "sensor1" || elements.at(1) != "O3" || elements.at(2) != "2023-10-01 12:00:00" || elements.at(3) != "25.5") {
         cout << "Test 1 failed: splitLine did not return expected values." << endl;
@@ -42,7 +42,7 @@ int test1_CSVParser()
 
 int test2_CSVParser()
 {
-    CSVParser parser("../Dataset");
+    CSVParser * parser = new CSVParser("Dataset/");
 
     string expectedID[] = {"O3", "SO2", "NO2", "PM10"};
     string expectedUnit[] = {"µg/m3", "µg/m3", "µg/m3", "µg/m3"};
@@ -53,9 +53,10 @@ int test2_CSVParser()
         "concentration de particules fines"
     };
 
-    vector<Attribute> attributs = parser.loadAttributes();
+    vector<Attribute> attributs = parser->loadAttributes();
     if (attributs.empty()) {
         cout << "Test2 failed: No attributes loaded." << endl;
+        delete parser;
         return 1;
     } else {
         for (size_t i = 0; i < attributs.size(); ++i) {
@@ -69,21 +70,24 @@ int test2_CSVParser()
                      << attributs[i].getUnit() << ", "
                      << "getDescription() non implémenté" // << attributs[i].getDescription()
                      << endl;
+                delete parser;
                 return 1;
             }
         }
     }
 
+    delete parser;
     return 0;
 }
 
 int test3_CSVParser()
 {
-    CSVParser parser("../Dataset");
+    CSVParser * parser = new CSVParser("Dataset/");
 
-    vector<Sensor> sensors = parser.loadSensors();
+    vector<Sensor> sensors = parser->loadSensors();
     if (sensors.empty()) {
         cout << "Test3 failed: No sensors loaded." << endl;
+        delete parser;
         return 1;
     } else if ( sensors.at(0).getSensorID() != "Sensor0" ||
                 sensors.at(0).getCoordinates() == nullptr || 
@@ -94,16 +98,18 @@ int test3_CSVParser()
         cout << "Got: " << sensors.at(0).getSensorID() << ", Coordinates(" 
              << sensors.at(0).getCoordinates()->getLatitude() << ", " 
              << sensors.at(0).getCoordinates()->getLongitude() << ")" << endl;
+        delete parser;
         return 1;
     }
 
+    delete parser;
     return 0;
 }
 
 /*
 int test4_CSVParser()
 {
-    CSVParser parser("Data/");
+    CSVParser parser("Dataset/");
 
     vector<Measurement> measurements = parser.loadMeasurements();
     if (measurements.empty()) {
@@ -127,11 +133,12 @@ int test4_CSVParser()
 */
 
 int test5_CSVParser(){
-    CSVParser parser("../Dataset");
+    CSVParser * parser = new CSVParser("Dataset/");
 
-    vector<Cleaner> cleaners = parser.loadCleaners();
+    vector<Cleaner> cleaners = parser->loadCleaners();
     if (cleaners.empty()) {
         cout << "Test5 failed: No cleaners loaded." << endl;
+        delete parser;
         return 1;
     }else if (cleaners.at(0).getCoordinates() == nullptr) {
             cout << "Test5 failed: Coordinates is nullptr." << endl;
@@ -149,19 +156,22 @@ int test5_CSVParser(){
              << cleaners.at(0).getCoordinates()->getLongitude() << "), "
              << std::chrono::system_clock::to_time_t(cleaners.at(0).getTimestamp_start()) << ", "
              << std::chrono::system_clock::to_time_t(cleaners.at(0).getTimestamp_stop()) << endl;
+        delete parser;
         return 1;
     }
 
+    delete parser;
     return 0;
 }
 
 int test6_CSVParser()
 {
-    CSVParser parser("../Dataset");
+    CSVParser * parser = new CSVParser("Dataset/");
 
-    vector<PrivateIndividual> individuals = parser.loadPrivateIndividuals();
+    vector<PrivateIndividual> individuals = parser->loadPrivateIndividuals();
     if (individuals.empty()) {
         cout << "Test6 failed: No private individuals loaded." << endl;
+        delete parser;
         return 1;
     } else if (//individuals.at(0).getUserName() != "User0" ||
                //individuals.at(0).getSensorsIDs().empty() ||
@@ -173,31 +183,36 @@ int test6_CSVParser()
              << /*(individuals.at(0).getSensorsIDs().empty() ? "No sensors" : individuals.at(0).getSensorsIDs().at(0))*/ "getSensorsIDs() pas encore implémenté" << ","
              << individuals.at(0).getPoints()
              << endl;
+        delete parser;
         return 1;
     }
 
+    delete parser;
     return 0;
 }
 
 int test7_CSVParser()
 {
-    CSVParser parser("../Dataset");
+    CSVParser * parser = new CSVParser("Dataset/");
 
-    vector<AirCleanerProvider> providers = parser.loadAirCleanerProviders();
+    vector<AirCleanerProvider> providers = parser->loadAirCleanerProviders();
     if (providers.empty()) {
         cout << "Test7 failed: No air cleaner providers loaded." << endl;
+        delete parser;
         return 1;
-    } else if (providers.at(0).GetProviderID() != "Provider0" // ||
-               //providers.at(0).getCleanersID().empty() ||
-               //providers.at(0).getCleanersID().at(0) != "Cleaner0"
+    } else if (providers.at(0).GetProviderID() != "Provider1" ||
+               providers.at(0).getCleanersID().empty() ||
+               providers.at(0).getCleanersID().at(0) != "Cleaner1"
                ) {
         cout << "Test7 failed: First air cleaner provider error" << endl;
-        cout << "Expected: Provider0, Cleaner0" << endl;
+        cout << "Expected: Provider1, Cleaner1" << endl;
         cout << "Got: " << providers.at(0).GetProviderID() << ", "
-             << /*(providers.at(0).getCleanersID().empty() ? "No cleaners" : providers.at(0).getCleanersID().at(0))*/ "getCleanersID() pas encore implémenté" << endl;
+             << (providers.at(0).getCleanersID().empty() ? "No cleaners" : providers.at(0).getCleanersID().at(0)) << endl;
+        delete parser;
         return 1;
     }
 
+    delete parser;
     return 0;
 }
 

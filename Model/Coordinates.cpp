@@ -13,6 +13,8 @@
 #include <string>
 #include <stdexcept>
 #include <cmath>
+#include <iostream>
+using namespace std;
 
 //------------------------------------------------------------- Constantes
 
@@ -48,6 +50,17 @@ float Coordinates::distance(const Coordinates &c1, const Coordinates &c2) {
 
 //------------------------------------------------- Surcharge d'opérateurs
 
+Coordinates& Coordinates::operator=(const Coordinates& other) {
+    #ifdef MAP
+        cout << "Appel à l'opérateur d'assignation de <Coordinates>" << endl;
+    #endif
+    if (this != &other) {
+        this->latitude = other.latitude;
+        this->longitude = other.longitude;
+    }
+    return *this;
+}
+
 //-------------------------------------------- Constructeurs - destructeur
 
 Coordinates::Coordinates() {
@@ -70,6 +83,14 @@ Coordinates::~Coordinates() {
     #ifdef MAP
         cout << "Appel au destructeur de <Coordinates>" << endl;
     #endif
+}
+
+Coordinates::Coordinates(const Coordinates& other) {
+    #ifdef MAP
+        cout << "Appel au constructeur de copie de <Coordinates>" << endl;
+    #endif
+    this->latitude = other.latitude;
+    this->longitude = other.longitude;
 }
 
 //------------------------------------------------------------------ PRIVE

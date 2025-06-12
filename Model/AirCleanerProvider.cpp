@@ -30,6 +30,11 @@ const string& AirCleanerProvider::GetProviderID() const {
 void AirCleanerProvider::AddCleanerID(const string& cleanerID) {
     cleanersID.push_back(cleanerID);
 }
+
+const vector<string>& AirCleanerProvider::getCleanersID() const {
+    return cleanersID;
+}
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur

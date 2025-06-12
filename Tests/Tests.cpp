@@ -8,6 +8,7 @@ using namespace std;
 
 void runTests()
 {
+    cout << "\nExécution des tests..." << endl << endl;
     cout << "Running all tests..." << endl << endl;
     int result = 0;
 

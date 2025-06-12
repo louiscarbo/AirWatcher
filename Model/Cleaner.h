@@ -58,6 +58,8 @@ public:
     // Contrat :
     //
 
+    Cleaner(const Cleaner& other);
+
     Cleaner (string cleanerID, Timestamp timestamp_start, Timestamp timestamp_stop, Coordinates coordinates);
 
     Cleaner (string cleanerID, Timestamp timestamp_start, Timestamp timestamp_stop, double uneLatitude, double uneLongitude);
