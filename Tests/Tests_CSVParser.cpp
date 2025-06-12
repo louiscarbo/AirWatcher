@@ -235,9 +235,3 @@ int testCSVParser()
 
     return resultat;
 }
-
-
-int main(){
-    testCSVParser();
-    return 0;
-}

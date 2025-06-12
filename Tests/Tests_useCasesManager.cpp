@@ -119,7 +119,3 @@ int testuseCasesManager()
     return resultat;
 }
 
-int main(){
-    testuseCasesManager();
-    return 0;
-}

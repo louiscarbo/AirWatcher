@@ -70,8 +70,6 @@ public:
 //------------------------------------------------- Surcharge d'opérateurs
     bool operator<(const Sensor & other) const ;
 
-    Sensor(const Sensor & other);
-
     Sensor& operator=(const Sensor& other);
 
 //-------------------------------------------- Constructeurs - destructeur
