@@ -49,6 +49,17 @@ Cleaner::Cleaner() {
     this->coordinates = new Coordinates();
 }
 
+Cleaner::Cleaner(const Cleaner& other) {
+    #ifdef MAP
+        cout << "Appel au constructeur de copie de <Cleaner>" << endl;
+    #endif
+    this->cleanerID = other.cleanerID;
+    this->timestamp_start = other.timestamp_start;
+    this->timestamp_stop = other.timestamp_stop;
+    // COPIE PROFONDE du pointeur :
+    this->coordinates = new Coordinates(other.coordinates->getLatitude(), other.coordinates->getLongitude());
+}
+
 Cleaner::Cleaner(string cleanerID, Timestamp timestamp_start, Timestamp timestamp_stop, Coordinates coordinates) {
     #ifdef MAP
         cout << "Appel au constructeur de <Cleaner>" << endl;
@@ -56,7 +67,7 @@ Cleaner::Cleaner(string cleanerID, Timestamp timestamp_start, Timestamp timestam
     this->cleanerID = cleanerID;
     this->timestamp_start = timestamp_start;
     this->timestamp_stop = timestamp_stop;
-    this->coordinates = new Coordinates(coordinates);
+    this->coordinates = new Coordinates(coordinates.getLatitude(), coordinates.getLongitude());
 }
 
 Cleaner::Cleaner(string cleanerID, Timestamp timestamp_start, Timestamp timestamp_stop, double uneLatitude, double uneLongitude) {

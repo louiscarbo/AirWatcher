@@ -8,7 +8,7 @@ using namespace std;
 
 void runTests()
 {
-    cout << "\nRunning all tests..." << endl << endl;
+    cout << "\nExécution des tests..." << endl << endl;
     int result = 0;
 
     result += testCSVParser();

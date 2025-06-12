@@ -11,9 +11,9 @@ using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 #include <map>
 using namespace std;
 
-Coordinates *Sensor::getCoordinates() const
+const Coordinates * Sensor::getCoordinates() const
 {
-    return coordinates;
+    return &coordinates;
 }
 
 int Sensor::calculateMeanAtmoIndex(Timestamp timeStamp = std::chrono::system_clock::now())
@@ -92,33 +92,45 @@ Sensor::Sensor()
     initDictUnit();
 }
 
-Sensor::Sensor(string sensorId, Coordinates coordinates)
+Sensor::Sensor(string sensorId, Coordinates coords)
+    : sensorID(sensorId)
+    , coordinates(coords)
+    , privateIndividual(nullptr)
+    , measurements()
+    , dictUnitAtmoMaxValue()
 {
-#ifdef MAP
-    cout << "Appel au constructeur de <Sensor>" << endl;
-#endif
-    sensorID = sensorId;
-    this->coordinates = new Coordinates(coordinates.getLatitude(), coordinates.getLongitude());
-    privateIndividual = nullptr;
-    measurements = list<Measurement>();
+    #ifdef MAP
+        cout << "Appel au constructeur de <Sensor>" << endl;
+    #endif
     initDictUnit();
 }
 
-// boolean addMeasurement(Measurement measurement)??
+Sensor::Sensor(const Sensor& other)
+    : sensorID(other.sensorID)
+    , coordinates(other.coordinates)
+    , privateIndividual(other.privateIndividual)
+    , measurements(other.measurements)
+    , dictUnitAtmoMaxValue(other.dictUnitAtmoMaxValue)
+{
+    #ifdef MAP
+        cout << "Appel au constructeur de copie de <Sensor>" << endl;
+    #endif
+}
+
 Sensor::Sensor(string sensor_ID, float latitudeInit, float longitudeInit, PrivateIndividual *privateIndiv)
 {
     sensorID = sensor_ID;
-    coordinates = new Coordinates(latitudeInit, longitudeInit);
+    coordinates = Coordinates(latitudeInit, longitudeInit);  // Pas de new
     privateIndividual = privateIndiv;
     measurements = list<Measurement>();
     initDictUnit();
 }
+
 Sensor::~Sensor()
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Sensor>" << endl;
 #endif
-    delete coordinates;
 }
 
 void Sensor::initDictUnit()

@@ -38,6 +38,8 @@ public:
 
 //------------------------------------------------- Surcharge d'opérateurs
 
+    Coordinates& operator=(const Coordinates& other);
+
 //-------------------------------------------- Constructeurs - destructeur
     Coordinates ( );
     // Mode d'emploi :
@@ -56,6 +58,8 @@ public:
     //
     // Contrat :
     //
+
+    Coordinates(const Coordinates& other);
 
 //------------------------------------------------------------------ PRIVE
 

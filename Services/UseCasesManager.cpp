@@ -205,26 +205,63 @@ int UseCasesManager::ComputeAtmoIndexInArea(Coordinates centerCoords,float R, Ti
 }
 
 
-void UseCasesManager::loadData() {
+void UseCasesManager::loadData(bool verbose) {
 
+    if (verbose) {
+        cout << "\nChargement des données depuis les fichiers de données." << endl;
+    }
+
+    if (verbose) {
+        cout << "Chargement des attributs...    ";
+    }
     attributes   = parser.loadAttributes();
-    cout << "Chargé " << attributes.size() << " attribut(s)\n";
+    if (verbose) {
+        cout << "Terminé : " << attributes.size() << " attributs chargés\n";
+    }
 
+    if (verbose) {
+        cout << "Chargement des capteurs...     ";
+    }
     sensors      = parser.loadSensors();
-    cout << "Chargé " << sensors.size() << " capteur(s)\n";
+    if (verbose) {
+        cout << "Terminé : " << sensors.size() << " capteurs chargés\n";
+    }
 
+    if (verbose) {
+        cout << "Chargement des mesures...      ";
+    }
     measurements = parser.loadMeasurements();
-    cout << "Chargé " << measurements.size() << " mesure(s)\n";
+    if (verbose) {
+        cout << "Terminé : " << measurements.size() << " mesures chargées\n";
+    }
 
+    if (verbose) {
+        cout << "Chargement des nettoyeurs...   ";
+    }
     cleaners     = parser.loadCleaners();
-    cout << "Chargé " << cleaners.size() << " cleaner(s)\n";
+    if (verbose) {
+        cout << "Terminé : " << cleaners.size() << " nettoyeurs chargés\n";
+    }
 
+    if (verbose) {
+        cout << "Chargement des utilisateurs... ";
+    }
     users        = parser.loadPrivateIndividuals();
-    cout << "Chargé " << users.size() << " utilisateur(s)\n";
+    if (verbose) {
+        cout << "Terminé : " << users.size() << " utilisateurs chargés\n";
+    }
 
+    if (verbose) {
+        cout << "Chargement des fournisseurs... ";
+    }
     providers    = parser.loadAirCleanerProviders();
-    cout << "Chargé " << providers.size() << " provider(s)\n";
-}
+    if (verbose) {
+        cout << "Terminé : " << providers.size() << " fournisseurs chargés\n";
+    }
+
+    if (verbose) {
+        cout << "Chargement des données terminé." << endl;
+    }}
 
 //------------------------------------------------- Surcharge d'opérateurs
 

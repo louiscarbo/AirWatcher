@@ -35,6 +35,7 @@ public:
 //----------------------------------------------------- Méthodes publiques
     const string& GetProviderID() const;
     void AddCleanerID(const string& cleaner);
+    const vector<string>& getCleanersID() const;
 
 //-------------------------------------------- Constructeurs - destructeur
     explicit AirCleanerProvider(const std::string& providerID);

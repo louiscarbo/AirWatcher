@@ -48,7 +48,7 @@ public:
     //  - at doit être un horodatage valide.
     //  - S'il n'y a pas de mesures à cet horodatage, la méthode renvoie NaN
 
-    Coordinates * getCoordinates() const;
+    const Coordinates * getCoordinates() const;
     // Mode d'emploi :
     //  Renvoie les coordonnées du capteur.
     // Contrat :
@@ -79,6 +79,8 @@ public:
     // Contrat :
     //
 
+    Sensor(const Sensor& other);
+
     Sensor(string sensorId, Coordinates coordinates);
 
     Sensor(string sensor_ID, float latitudeInit, float longitudeInit, PrivateIndividual * privateIndiv = nullptr);
@@ -96,7 +98,7 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
     string sensorID;
-    Coordinates * coordinates;
+    Coordinates coordinates;
     list<Measurement> measurements;
     PrivateIndividual * privateIndividual;
     map<string,map<int,int>> dictUnitAtmoMaxValue;
