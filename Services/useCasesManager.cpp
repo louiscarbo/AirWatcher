@@ -7,7 +7,6 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
 #include <utility>
 #include <vector>
@@ -15,6 +14,7 @@ using namespace std;
 #include <numeric>    // For accumulate
 #include <cmath>      // For abs
 #include <chrono>
+using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "../Services/useCasesManager.h"
@@ -249,9 +249,9 @@ UseCasesManager::UseCasesManager()
 #ifdef MAP
     cout << "Appel au constructeur de <UseCasesManager>" << endl;
 #endif
-    this->dataPath = ""; // Default path, can be changed later
+    this->dataPath = "Dataset/";
     this->parser = CSVParser(this->dataPath);
-    this->trackPerformance = false; // Default value, can be set later if needed
+    this->trackPerformance = false;
 } //----- Fin de UseCasesManager
 
 
